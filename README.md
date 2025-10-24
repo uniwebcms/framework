@@ -1,16 +1,22 @@
 # Uniweb Framework
 
-A web development framework built on clean separation of concerns. **Content** lives in sites (markdown files or managed via the Uniweb App), while **Foundations** provide the React components that render that content.
+A web development framework built on clean separation of concerns. **Content** lives in sites – markdown files and assets. **Foundations** provide the React components that render that content.
 
-This architecture means content teams and developers work independently — content editors compose pages using intuitive components, developers build those components.
+This architecture means content teams and developers work independently – content editors compose pages using intuitive components, developers build those components.
 
 ## Quick Start
 
-Create a new Uniweb project:
+Create a new Uniweb project with a starter template:
 
 ```bash
-npx @uniwebcms/framework create my-project --site main --module marketing
+npx @uniwebcms/framework create my-project --template marketing
 ```
+
+This creates a complete example with:
+
+- A Foundation showcasing different component patterns
+- A demo site with sample pages and content
+- Components ranging from fully hardcoded to fully parameterized
 
 Start the development server:
 
@@ -20,7 +26,7 @@ npm install
 npx uniweb start
 ```
 
-Visit `http://localhost:3000/sites/main/` to see your site.
+Want to start from scratch? Omit the `--template` flag for a minimal project, and add sites/modules as needed. A single project can contain multiple sites and modules.
 
 ## Core Concepts
 
@@ -69,12 +75,6 @@ npx @uniwebcms/framework create my-project --site demo --module marketing
 ```
 
 Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing.
-
-**Minimal Project** (add sites/modules as needed):
-
-```bash
-npx @uniwebcms/framework create my-project
-```
 
 ## Key CLI Commands
 
