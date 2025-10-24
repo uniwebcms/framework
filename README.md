@@ -26,9 +26,11 @@ npm install
 npx uniweb start
 ```
 
+Visit `http://localhost:3000/sites/main/` to see your site.
+
 **Available templates:** `marketing`, `docs`, `corporate`
 
-> Want to start from scratch? Omit `--template` for a minimal project, and later add sites and modules as needed.
+> Want to start from scratch? Omit `--template` for a minimal project, then add sites and modules as needed.
 
 ## Core Concepts
 
@@ -58,7 +60,45 @@ Discover innovative solutions for your business.
 
 At runtime, the Framework connects your content with the appropriate component from your Foundation.
 
+## Workspace Organization
+
+**Single project, multiple workspaces:** One project can contain multiple sites and Foundations as independent workspaces. Ideal when you to share components across Foundations, or test the same content with different Foundations.
+
+**Multiple projects:** Alternatively, create separate projects (repositories) for different sites or Foundations. Ideal for independent versioning, separate teams, or publishing Foundations to the registry.
+
+Both approaches use the same Framework tools. Here's an example of a multi-workspace project:
+
+```
+my-project/
+├── package.json           # Root package.json with workspace config
+├── uniweb.config.js       # Project-level configuration
+├── sites/                 # Site workspaces
+│   ├── marketing/         # Marketing site
+│   └── docs/              # Documentation site
+└── src/                   # Component library workspaces
+    ├── corporate/         # Corporate design Foundation
+    └── documentation/     # Documentation-focused Foundation
+```
+
+Each workspace maintains its own dependencies, which are auto-installed based on your preferred package manager (npm, yarn, pnpm, or bun).
+
 ## Project Types
+
+**Template Project** (recommended for learning):
+
+```bash
+npx @uniwebcms/framework@latest create my-project --template marketing
+```
+
+Includes a Foundation with example components and a demo site with sample content.
+
+**Development Project** (build your own Foundation):
+
+```bash
+npx @uniwebcms/framework@latest create my-project --site demo --module marketing
+```
+
+Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing.
 
 **Content-Only Project** (uses a remote Foundation):
 
@@ -69,14 +109,6 @@ npx @uniwebcms/framework@latest create my-site \
 ```
 
 Ideal for content teams – no local code, just content management.
-
-**Development Project** (build your own Foundation):
-
-```bash
-npx @uniwebcms/framework@latest create my-project --site demo --module marketing
-```
-
-Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing.
 
 **Minimal Project** (add sites/modules as needed):
 
@@ -109,8 +141,6 @@ npx uniweb module publish     # Publish your Foundation to the registry
 npx @uniwebcms/framework@latest create my-project
 ```
 
-> **Note:** Inside a project, use `npx uniweb` to use your project's installed version.
-
 **Optional:** Install globally for frequent use:
 
 ```bash
@@ -141,6 +171,52 @@ Build one Foundation for a vertical (documentation, marketing, corporate, medica
 
 This separation eliminates bottlenecks and lets each team focus on their expertise.
 
+## Deployment
+
+**Publish your Foundation to the registry:**
+
+```bash
+npx uniweb module publish
+```
+
+Once published, content teams can create sites using your Foundation through the Uniweb App or by linking to your published module URL.
+
+**Deploy your site:**
+
+Use the Uniweb App for integrated hosting, or build and deploy to any static host:
+
+```bash
+npx uniweb build
+```
+
+The `dist` folder contains everything needed for deployment to GitHub Pages, Netlify, Vercel, or any other static hosting service.
+
+See the [deployment guide](https://docs.framework.uniweb.app/deployment) for detailed options.
+
+## Architecture
+
+### Pre-Configured Development Environment
+
+Site and module workspaces come fully pre-configured with professional development tooling:
+
+- **Modern JavaScript ecosystem**: Webpack, Babel, and ESM module support with zero configuration
+- **TypeScript integration**: Complete TypeScript support with optimized tsconfig defaults
+- **React development**: Built-in React, JSX processing, and router with automatic React imports
+- **Advanced CSS tools**: PostCSS pipeline with Tailwind CSS and essential plugins
+- **Core components**: The `@uniwebcms/basic` package provides essential components like Link, Image, Icon, Form, RichText, and more
+- **Production optimization**: Automatic minification, tree-shaking, code splitting, and asset optimization
+- **Developer experience**: Hot module replacement, detailed error overlays, and source maps
+
+This comprehensive setup eliminates hours of configuration work, allowing you to focus immediately on building components rather than wrestling with build tools. While the default configuration covers most common needs, all aspects can be customized as your project requirements evolve.
+
+### Module Federation
+
+Webpack technology enabling Foundations to load dynamically at runtime and share dependencies with host sites. Allows Foundation updates to propagate instantly – improve your Foundation, and sites get the update on their next page load based on their version strategy.
+
+### Version Strategy
+
+Sites control how Foundation updates are applied: automatic (all updates), minor-only (minor + patch), patch-only (patch only), or pinned (no updates). This configuration is evaluated at runtime, giving sites control over their update stability.
+
 ### The Broader Ecosystem
 
 The Uniweb Framework is open source (GPL-3.0) and free to use. The broader Uniweb ecosystem includes:
@@ -157,12 +233,16 @@ The Framework works standalone or integrates with the full ecosystem as your nee
 
 ## Learn More
 
-- **[Framework Website](https://framework.uniweb.app)** – Guides, blog, and comprehensive resources
-- **[Documentation](https://docs.framework.uniweb.app)** – Complete API reference and tutorials
-- **[Uniweb App](https://uniweb.app)** – Visual content editor and hosting platform
-- **[Examples](https://github.com/uniwebcms/examples)** – Sample Foundations and components
-- **[Community Interfaces](https://github.com/uniwebcms/interfaces)** – Standard component specifications
+- 🏠 **[Framework Website](https://framework.uniweb.app)** – Guides, blog, and comprehensive resources
+- 📘 **[Documentation](https://docs.framework.uniweb.app)** – Complete API reference and tutorials
+- 🚀 **[Uniweb App](https://uniweb.app)** – Visual content editor and hosting platform
+- 💡 **[Examples](https://github.com/uniwebcms/examples)** – Sample Foundations and components
+- 🛠️ **[Community Interfaces](https://github.com/uniwebcms/interfaces)** – Standard component specifications
 
 ## License
 
-GPL-3.0-or-later – see [LICENSE](LICENSE) for details
+This project is licensed under GPL-3.0-or-later.
+
+You are free to use and modify this repository, but if you distribute it (as a template or software package), you must also release your modifications under the same license.
+
+**Important:** Websites created using Uniweb are NOT considered distributions and do not need to be licensed under GPL. The content and sites you build with Uniweb remain yours to license as you choose.
