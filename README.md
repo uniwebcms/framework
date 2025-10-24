@@ -1,162 +1,158 @@
 # Uniweb Framework
 
-## A Modern Approach to Web Development Through Separation of Concerns
+A web development framework built on clean separation of concerns. **Content** lives in sites (markdown files or managed via the Uniweb App), while **Foundations** provide the React components that render that content.
 
-The Uniweb Framework transforms how websites are built by creating a clean separation between content and code. This separation enables content teams and developers to work independently, each focusing on their areas of expertise without blocking each other.
+This architecture means content teams and developers work independently — content editors focus on writing, developers focus on building reusable components.
 
-## Usage Methods
+## Quick Start
 
-This library can be used in three ways:
-
-1. As a CLI tool
-2. As a Node.js module
-3. As a webpack plugin
-
-### The Uniweb CLI Tool
-
-The Framework includes a powerful command-line interface (CLI) that simplifies many common tasks:
+Create a new Uniweb project:
 
 ```bash
-# Install the Uniweb CLI tool globally
+npx @uniwebcms/framework@latest create my-portfolio --site main --module marketing
+```
+
+Start the development server:
+
+```bash
+cd my-portfolio
+npm install
+npx uniweb start
+```
+
+Visit `http://localhost:3000/sites/main/` to see your site.
+
+## Core Concepts
+
+### Sites and Foundations
+
+- A **site** is your content – pages, assets, and configuration
+- A **Foundation** is a collection of React components designed to work together
+- A **module** is how Foundations are packaged and delivered to sites
+
+Each site links to one Foundation (local or remote) that provides all the components it needs.
+
+### Content-Driven Rendering
+
+Content is written in markdown with YAML frontmatter that specifies which component to use:
+
+```markdown
+---
+component: HeroSection
+layout: centered
+background: dark
+---
+
+# Welcome to Our Platform
+
+Discover innovative solutions for your business.
+```
+
+At runtime, the Framework connects your content with the appropriate component from your Foundation.
+
+## Project Types
+
+**Content-Only Project** (uses a remote Foundation):
+
+```bash
+npx @uniwebcms/framework@latest create my-site \
+  --site / \
+  --module https://modules.uniweb.app/username/marketing
+```
+
+Ideal for content teams – no local code, just content management.
+
+**Development Project** (build your own Foundation):
+
+```bash
+npx @uniwebcms/framework@latest create my-project --site demo --module marketing
+```
+
+Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing.
+
+**Minimal Project** (add sites/modules as needed):
+
+```bash
+npx @uniwebcms/framework@latest create my-project
+```
+
+## Key CLI Commands
+
+```bash
+# Inside a project
+npx uniweb start              # Development server
+npx uniweb page add about     # Create a new page
+npx uniweb component add FAQ  # Add component to your Foundation
+
+# Inline help
+npx uniweb -h                 # Main help index
+npx uniweb page add -h        # Help for 'page add' command
+
+# Publishing (coming soon)
+npx uniweb site publish       # Publish your site
+npx uniweb module publish     # Publish your Foundation to the registry
+```
+
+## Installation Options
+
+**Recommended:** Use `npx` (no installation needed):
+
+```bash
+npx @uniwebcms/framework@latest create my-project
+```
+
+**Optional:** Install globally for frequent use:
+
+```bash
 npm install -g @uniwebcms/framework
+uniweb create my-project
 ```
 
-Installing the CLI tool globally offers several advantages:
+## Why Uniweb Framework?
 
-- Access Uniweb commands from any directory
-- Manage content across multiple projects
-- Automate common workflows
-- Maintain consistency across languages and sites
+### For Developers
 
-The CLI tool automatically detects your Uniweb project context, making it aware of the current site, page, or component you're working with.
+**Build plug-and-play foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically (controlled by per-site versioning policy).
 
-Start using Uniweb with these basic CLI commands:
+**Standard React workflow.** Use any packages, styles, or tools you prefer. The Framework scaffolds a normal React project – no vendor lock-in.
 
-#### Create a minimal project
+**Optional schemas unlock powerful features.** Add component schemas for your user-facing components:
 
-```bash
-uniweb init my-project
-```
+- The local build process uses the component schemas to validate front matter options
+- The Uniweb App uses a foundation's schema to integrate its exposed components as native building blocks in its visual editor
 
-This creates a barebones project with just the minimum requirements. After creation, you can navigate to it with `cd my-project` and run additional commands to add sites or modules.
+### The Power of Specialization
 
-#### Create a content-focused project
+Build one Foundation for a vertical (documentation, marketing, corporate, medical, legal, real estate) and deploy to dozens of client sites. Updates propagate automatically, controlled by per-site versioning policies.
 
-```bash
-uniweb init my-project --site /
-```
+**Developers maintain Foundations.** Build and refine components without managing individual client content.
 
-This creates a project with a root-level site, which is the basic setup for a content-focused project with the structure described earlier in this guide.
+**Content teams manage content.** Work with Git and Markdown, or use the [Uniweb App](https://uniweb.app) for a professional visual editing experience. Components are built by developers; content teams use them without touching code.
 
-#### Create a development-focused project
+This separation eliminates bottlenecks and lets each team focus on their expertise.
 
-```bash
-uniweb init my-project --module M1 --interface marketing --site test
-```
+### The Broader Ecosystem
 
-This creates a project with:
+The Uniweb Framework is open source (GPL-3.0) and free to use. The broader Uniweb ecosystem includes:
 
-- A purpose-built Foundation under `src/M1` (where developers will create reusable components)
-- A starter template of components based on the `marketing` [library interface](https://github.com/uniwebcms/library-interfaces) (defaults to `marketing/latest/core`)
-- A test site under `sites/test` initialized with an index page for testing components
+- **Uniweb App** - Professional visual editor and hosting platform (free for drafts, pay to publish)
+- **Foundation Registry** - Publish and share Foundations with licensing options (coming soon)
+- **Community** - Open interfaces, examples, and shared best practices
 
-### Node.js Module
-
-Install the library as a regular dependency.
-
-```bash
-npm install @uniwebcms/framework
-```
-
-Then, use it in your code.
-
-```javascript
-import { collectSiteContent } from "@uniwebcms/framework";
-
-async function processWebsite() {
-  try {
-    const content = await collectSiteContent("./website");
-    console.log(content);
-  } catch (err) {
-    console.error("Processing error:", err);
-  }
-}
-```
-
-### Webpack Plugin
-
-The webpack plugin integrates content collection into your build process:
-
-```javascript
-import { SiteContentPlugin } from "@uniwebcms/framework/webpack";
-
-export default {
-  plugins: [
-    new SiteContentPlugin({
-      injectToHtml: true, // Optional: inject into HTML (requires html-webpack-plugin)
-      variableName: "__SITE_CONTENT__", // Optional: id/variable name when injecting
-      filename: "site-content.json", // Optional: output filename
-      injectFormat: "json", // Optional: injection format ('json' or 'script')
-    }),
-  ],
-};
-```
-
-#### HTML Injection Formats
-
-The plugin supports two formats for injecting content into HTML:
-
-1. JSON format (default):
-
-```html
-<script type="application/json" id="__SITE_CONTENT__">
-  {
-    "pages": {
-      /* content */
-    }
-  }
-</script>
-```
-
-Access in your code:
-
-```javascript
-const content = JSON.parse(
-  document.getElementById("__SITE_CONTENT__").textContent
-);
-```
-
-2. Script format:
-
-```html
-<script>
-  window.__SITE_CONTENT__ = {
-    /* content */
-  };
-</script>
-```
-
-Access in your code:
-
-```javascript
-const content = window.__SITE_CONTENT__;
-```
-
-## Error Handling
-
-The library handles several types of errors:
-
-- Missing parent sections for subsections
-- Malformed YAML, JSON, or Markdown content
-- Invalid file structure or naming
-- Missing required files
-
-Errors are collected in the `errors` array of the output, allowing processing to continue even when some files fail.
+The Framework works standalone or integrates with the full ecosystem as your needs grow.
 
 ## Requirements
 
-- Node.js >=18.0.0
+- Node.js ≥18.0.0
+
+## Learn More
+
+- **[Framework Website](https://framework.uniweb.app)** - Guides, blog, and comprehensive resources
+- **[Documentation](https://docs.framework.uniweb.app)** - Complete API reference and tutorials
+- **[Uniweb App](https://uniweb.app)** - Visual content editor and hosting platform
+- **[Examples](https://github.com/uniwebcms/examples)** - Sample Foundations and components
+- **[Community Interfaces](https://github.com/uniwebcms/interfaces)** - Standard component specifications
 
 ## License
 
-GPL-3.0-or-later - see LICENSE for details
+GPL-3.0-or-later - see [LICENSE](LICENSE) for details
