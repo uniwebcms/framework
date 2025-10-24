@@ -9,7 +9,7 @@ This architecture means content teams and developers work independently — cont
 Create a new Uniweb project:
 
 ```bash
-npx @uniwebcms/framework@latest create my-portfolio --site main --module marketing
+npx @uniwebcms/framework create my-portfolio --site main --module marketing
 ```
 
 Start the development server:
@@ -55,7 +55,7 @@ At runtime, the Framework connects your content with the appropriate component f
 **Content-Only Project** (uses a remote Foundation):
 
 ```bash
-npx @uniwebcms/framework@latest create my-site \
+npx @uniwebcms/framework create my-site \
   --site / \
   --module https://modules.uniweb.app/username/marketing
 ```
@@ -65,7 +65,7 @@ Ideal for content teams – no local code, just content management.
 **Development Project** (build your own Foundation):
 
 ```bash
-npx @uniwebcms/framework@latest create my-project --site demo --module marketing
+npx @uniwebcms/framework create my-project --site demo --module marketing
 ```
 
 Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing.
@@ -73,7 +73,7 @@ Creates a local Foundation at `src/marketing` for building custom components, pl
 **Minimal Project** (add sites/modules as needed):
 
 ```bash
-npx @uniwebcms/framework@latest create my-project
+npx @uniwebcms/framework create my-project
 ```
 
 ## Key CLI Commands
@@ -98,7 +98,7 @@ npx uniweb module publish     # Publish your Foundation to the registry
 **Recommended:** Use `npx` (no installation needed):
 
 ```bash
-npx @uniwebcms/framework@latest create my-project
+npx @uniwebcms/framework create my-project
 ```
 
 **Optional:** Install globally for frequent use:
@@ -153,4 +153,4 @@ The Framework works standalone or integrates with the full ecosystem as your nee
 
 ## License
 
-GPL-3.0-or-later - see [LICENSE](LICENSE) for details
+GPL-3.0-or-later – see [LICENSE](LICENSE) for details
