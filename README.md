@@ -109,7 +109,7 @@ npx uniweb module publish     # Publish your Foundation to the registry
 npx @uniwebcms/framework@latest create my-project
 ```
 
-> **Note:** Inside a project, use `npx uniweb` (without @latest) to use your project's installed version.
+> **Note:** Inside a project, use `npx uniweb` to use your project's installed version.
 
 **Optional:** Install globally for frequent use:
 
@@ -120,7 +120,7 @@ uniweb create my-project
 
 ## Why Uniweb Framework?
 
-**Build plug-and-play Foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically (controlled by per-site versioning policy).
+**Build plug-and-play Foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically.
 
 **Components without the complexity.** A lightweight JavaScript engine runs in every site and provides all the typical code – localization, analytics, data fetching, forms, uploads. You just write components that receive preprocessed content and render it.
 
