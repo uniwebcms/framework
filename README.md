@@ -28,7 +28,7 @@ npx uniweb start
 
 **Available templates:** `marketing`, `docs`, `corporate`
 
-> Want to start from scratch? Omit `--template` for a minimal project. A single project can contain multiple sites and modules.
+> Want to start from scratch? Omit `--template` for a minimal project, and later add sites and modules as needed.
 
 ## Core Concepts
 
@@ -121,6 +121,8 @@ uniweb create my-project
 ## Why Uniweb Framework?
 
 **Build plug-and-play Foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically (controlled by per-site versioning policy).
+
+**Components without the complexity.** A lightweight JavaScript engine runs in every site and provides all the typical code – localization, analytics, data fetching, forms, uploads. You just write components that receive preprocessed content and render it.
 
 **Standard React workflow.** Use any packages, styles, or tools you prefer. The Framework scaffolds a normal React project – no vendor lock-in.
 
