@@ -109,14 +109,14 @@ npx uniweb module publish     # Publish your Foundation to the registry
 npx @uniwebcms/framework@latest create my-project
 ```
 
+> **Note:** Inside a project, use `npx uniweb` (without @latest) to use your project's installed version.
+
 **Optional:** Install globally for frequent use:
 
 ```bash
 npm install -g @uniwebcms/framework
 uniweb create my-project
 ```
-
-> **Note:** Inside a project, use `npx uniweb` (without @latest) to use your project's installed version.
 
 ## Why Uniweb Framework?
 
