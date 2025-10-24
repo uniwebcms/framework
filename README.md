@@ -1,6 +1,6 @@
 # Uniweb Framework
 
-A web development framework built on clean separation of concerns. **Content** lives in sites – markdown files and assets. **Foundations** provide the React components that render that content.
+A web development framework built on separation of concerns. **Content** lives in sites – markdown files and assets. **Foundations** provide the React components that render that content.
 
 This architecture means content teams and developers work independently – content editors compose pages using intuitive components, developers build those components.
 
@@ -9,7 +9,7 @@ This architecture means content teams and developers work independently – cont
 Create a new Uniweb project with a starter template:
 
 ```bash
-npx @uniwebcms/framework create my-project --template marketing
+npx @uniwebcms/framework@latest create my-project --template marketing
 ```
 
 This creates a complete example with:
@@ -26,7 +26,9 @@ npm install
 npx uniweb start
 ```
 
-Want to start from scratch? Omit the `--template` flag for a minimal project, and add sites/modules as needed. A single project can contain multiple sites and modules.
+**Available templates:** `marketing`, `docs`, `corporate`
+
+> Want to start from scratch? Omit `--template` for a minimal project. A single project can contain multiple sites and modules.
 
 ## Core Concepts
 
@@ -61,7 +63,7 @@ At runtime, the Framework connects your content with the appropriate component f
 **Content-Only Project** (uses a remote Foundation):
 
 ```bash
-npx @uniwebcms/framework create my-site \
+npx @uniwebcms/framework@latest create my-site \
   --site / \
   --module https://modules.uniweb.app/username/marketing
 ```
@@ -71,10 +73,16 @@ Ideal for content teams – no local code, just content management.
 **Development Project** (build your own Foundation):
 
 ```bash
-npx @uniwebcms/framework create my-project --site demo --module marketing
+npx @uniwebcms/framework@latest create my-project --site demo --module marketing
 ```
 
 Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing.
+
+**Minimal Project** (add sites/modules as needed):
+
+```bash
+npx @uniwebcms/framework@latest create my-project
+```
 
 ## Key CLI Commands
 
@@ -98,7 +106,7 @@ npx uniweb module publish     # Publish your Foundation to the registry
 **Recommended:** Use `npx` (no installation needed):
 
 ```bash
-npx @uniwebcms/framework create my-project
+npx @uniwebcms/framework@latest create my-project
 ```
 
 **Optional:** Install globally for frequent use:
@@ -107,6 +115,8 @@ npx @uniwebcms/framework create my-project
 npm install -g @uniwebcms/framework
 uniweb create my-project
 ```
+
+> **Note:** Inside a project, use `npx uniweb` (without @latest) to use your project's installed version.
 
 ## Why Uniweb Framework?
 
@@ -133,9 +143,9 @@ This separation eliminates bottlenecks and lets each team focus on their experti
 
 The Uniweb Framework is open source (GPL-3.0) and free to use. The broader Uniweb ecosystem includes:
 
-- **Uniweb App** - Professional visual editor and hosting platform (free for drafts, pay to publish)
-- **Foundation Registry** - Publish and share Foundations with licensing options (coming soon)
-- **Community** - Open interfaces, examples, and shared best practices
+- **Uniweb App** – Professional visual editor and hosting platform (free for drafts, pay to publish)
+- **Foundation Registry** – Publish and share Foundations with licensing options (coming soon)
+- **Community** – Open interfaces, examples, and shared best practices
 
 The Framework works standalone or integrates with the full ecosystem as your needs grow.
 
@@ -145,11 +155,11 @@ The Framework works standalone or integrates with the full ecosystem as your nee
 
 ## Learn More
 
-- **[Framework Website](https://framework.uniweb.app)** - Guides, blog, and comprehensive resources
-- **[Documentation](https://docs.framework.uniweb.app)** - Complete API reference and tutorials
-- **[Uniweb App](https://uniweb.app)** - Visual content editor and hosting platform
-- **[Examples](https://github.com/uniwebcms/examples)** - Sample Foundations and components
-- **[Community Interfaces](https://github.com/uniwebcms/interfaces)** - Standard component specifications
+- **[Framework Website](https://framework.uniweb.app)** – Guides, blog, and comprehensive resources
+- **[Documentation](https://docs.framework.uniweb.app)** – Complete API reference and tutorials
+- **[Uniweb App](https://uniweb.app)** – Visual content editor and hosting platform
+- **[Examples](https://github.com/uniwebcms/examples)** – Sample Foundations and components
+- **[Community Interfaces](https://github.com/uniwebcms/interfaces)** – Standard component specifications
 
 ## License
 
