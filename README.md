@@ -2,7 +2,7 @@
 
 A web development framework built on clean separation of concerns. **Content** lives in sites (markdown files or managed via the Uniweb App), while **Foundations** provide the React components that render that content.
 
-This architecture means content teams and developers work independently — content editors focus on writing, developers focus on building reusable components.
+This architecture means content teams and developers work independently — content editors compose pages using intuitive components, developers build those components.
 
 ## Quick Start
 
@@ -110,16 +110,14 @@ uniweb create my-project
 
 ## Why Uniweb Framework?
 
-### For Developers
-
-**Build plug-and-play foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically (controlled by per-site versioning policy).
+**Build plug-and-play Foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically (controlled by per-site versioning policy).
 
 **Standard React workflow.** Use any packages, styles, or tools you prefer. The Framework scaffolds a normal React project – no vendor lock-in.
 
 **Optional schemas unlock powerful features.** Add component schemas for your user-facing components:
 
-- The local build process uses the component schemas to validate front matter options
-- The Uniweb App uses a foundation's schema to integrate its exposed components as native building blocks in its visual editor
+- The local build process uses the component schemas to validate frontmatter options
+- The Uniweb App uses a Foundation's schema to integrate its exposed components as native building blocks in its visual editor
 
 ### The Power of Specialization
 
