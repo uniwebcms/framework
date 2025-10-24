@@ -9,13 +9,13 @@ This architecture means content teams and developers work independently — cont
 Create a new Uniweb project:
 
 ```bash
-npx @uniwebcms/framework create my-portfolio --site main --module marketing
+npx @uniwebcms/framework create my-project --site main --module marketing
 ```
 
 Start the development server:
 
 ```bash
-cd my-portfolio
+cd my-project
 npm install
 npx uniweb start
 ```
