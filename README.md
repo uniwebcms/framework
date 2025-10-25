@@ -40,7 +40,11 @@ Visit `http://localhost:3000/sites/main/` to see your site.
 - A **Foundation** is a collection of React components designed to work together
 - A **module** is how Foundations are packaged and delivered to sites
 
-Each site links to one Foundation (local or remote) that provides all the components it needs.
+Each site primarily links to one Foundation (local or remote) that provides the components it needs, with optional secondary Foundations for specialized components.
+
+### Foundation Interfaces
+
+A Foundation's _interface_ is the set of components it exposes and their available options. These exposed components are what you can reference in markdown frontmatter. When you write `component: HeroSection`, that component must be in your Foundation's interface. Internal components are implementation details that content teams never reference directly.
 
 ### Content-Driven Rendering
 
