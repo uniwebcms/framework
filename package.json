@@ -77,12 +77,18 @@
     "url": "https://github.com/uniwebcms/framework/issues"
   },
   "keywords": [
-    "content",
-    "site",
-    "collector",
+    "react",
+    "cms",
     "markdown",
-    "yaml",
-    "prosemirror",
-    "cli"
+    "localization",
+    "module-federation",
+    "design-system",
+    "component-library",
+    "headless-cms",
+    "site-generator",
+    "visual-editor",
+    "multi-site",
+    "content-platform",
+    "publishing-platform"
   ]
 }
