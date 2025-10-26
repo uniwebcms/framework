@@ -32,7 +32,7 @@ Visit `http://localhost:3000/sites/main/` to see your site.
 
 > Want to start from scratch? Omit `--template` for a minimal project, then add sites and modules as needed.
 
-> **Foundations scale to your needs.** Build a minimal Foundation for a single site (React + markdown, like any static site generator) or create a comprehensive design system with presets, theming, and visual editor integration. The framework supports the entire spectrum—from hardcoded components for one project to product-grade Foundations serving multiple sites with content creators who never touch code.
+> **Foundations scale to your needs.** Build a minimal Foundation for a single site (like any React framework) or create a comprehensive design system with presets, theming, and visual editor integration. The framework supports the entire spectrum—from hardcoded components for one project to product-grade Foundations serving multiple sites with content creators who never touch code.
 
 ## Core Concepts
 
@@ -207,7 +207,9 @@ npx uniweb build
 
 The `dist` folder contains everything needed for deployment to GitHub Pages, Netlify, Vercel, or any other static hosting service.
 
-See the [deployment guide](https://docs.framework.uniweb.app/deployment) for detailed options.
+<!-- See the [deployment guide](https://docs.framework.uniweb.app/deployment) for detailed options. -->
+
+See the [deployment guide](docs/deployment-guide.md) for detailed options.
 
 ## Architecture
 
