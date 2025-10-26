@@ -469,7 +469,7 @@ Before building, ensure your site configuration points to your foundation's URL.
 **In `site.yml`:**
 
 ```yaml
-foundation:
+module:
   url: https://username.github.io/my-foundation
 ```
 
@@ -530,7 +530,7 @@ When your site loads, it fetches the foundation from the URL specified in `site.
 
    ```yaml
    # site.yml
-   foundation:
+   module:
      url: https://your-foundation-url.com
    ```
 
@@ -587,19 +587,19 @@ Most sites never need to think about version strategies—the default behavior (
 
 ```yaml
 # Default (recommended) - auto-update on bug fixes and new features
-foundation:
+module:
   strategy: minor
 
 # Conservative - only bug fixes
-foundation:
+module:
   strategy: patch
 
 # Aggressive - all updates including breaking changes
-foundation:
+module:
   strategy: latest
 
 # Locked - never update (for debugging)
-foundation:
+module:
   strategy: pinned
   version: 1.2.3
 ```
@@ -749,7 +749,7 @@ git push origin main
 
 # 5. Configure demo site to use GitHub Pages URL
 # site.yml:
-# foundation:
+# module:
 #   url: https://username.github.io/oss-foundation
 
 # 6. Build and publish demo site
@@ -1075,7 +1075,7 @@ npx uniweb foundation setup-ci      # Add GitHub Actions workflow
 **site.yml** (Site root):
 
 ```yaml
-foundation:
+module:
   url: https://modules.uniweb.app/username/foundation-name
   # Or for self-hosted:
   # url: https://your-hosting.com/foundation-path
