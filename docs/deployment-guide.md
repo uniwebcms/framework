@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers deploying Foundations and sites in the Uniweb ecosystem.
+This guide covers publishing Foundations and sites in the Uniweb ecosystem.
 
 ---
 
@@ -50,7 +50,7 @@ This separation means foundation creators can focus on design systems while site
 
 ## Deployment Paths
 
-You have two distinct approaches for deploying foundations and sites:
+You have two distinct approaches for publishing foundations and sites:
 
 ### Path 1: Uniweb Infrastructure (Recommended)
 
@@ -171,13 +171,13 @@ Update `package.json` with semantic versioning:
 }
 ```
 
-**Semantic versioning:**
+**Follow semantic versioning strictly:**
 
-- **Patch** (1.0.1) — Bug fixes, no API changes
-- **Minor** (1.1.0) — New features, backward compatible
-- **Major** (2.0.0) — Breaking changes
+- **Patch** (1.0.1) — Bug fixes only, never breaks existing content
+- **Minor** (1.1.0) — New features/components/parameters, always backward compatible
+- **Major** (2.0.0) — Breaking changes, requires explicit site opt-in
 
-Sites control which updates they receive through version strategies.
+Sites automatically receive patch and minor updates. Major versions require manual upgrade.
 
 #### Step 4: Publish to Registry
 
@@ -220,12 +220,12 @@ Your Foundation is now available in the registry.
 
 #### Step 5: Create Sites with Your Foundation
 
-**The simple workflow:**
+Once your Foundation is published, create sites in the Uniweb App:
 
 1. Go to [Uniweb App](https://uniweb.app)
 2. Create a new site
 3. Select your Foundation from the list
-4. Build and design your site
+4. Build and design your site using the visual editor
 
 **Access is granted automatically** when you create a site with your own Foundation. No additional licensing steps needed.
 
@@ -237,6 +237,8 @@ This workflow enables you to:
 - Transfer a ready-to-publish site to clients
 
 When you transfer the site, **access persists**—the site retains permanent permission to use your Foundation.
+
+**Note:** Sites created in the Uniweb App are separate from any local demo sites you created during development. Local sites (created with `npx uniweb create --site demo`) are for testing your Foundation locally. App sites are for production use with the visual editor.
 
 ---
 
@@ -257,9 +259,9 @@ npx uniweb module grant site-abc-123
 
 ---
 
-### Creating and Publishing a Site on Uniweb
+### Creating and Publishing Sites in Uniweb App
 
-Sites are published directly through uniweb.app with integrated hosting.
+Sites are created and published directly through uniweb.app with integrated hosting.
 
 #### Understanding Site Pricing
 
@@ -302,14 +304,15 @@ Payment is required only when a site is published for production use.
 
 #### Publishing Steps
 
-1. Create and edit your site in the Uniweb App
-2. Preview with the visual editor
-3. Click **Publish** when ready
-4. Configure domain:
-   - Use Uniweb subdomain: `yoursite.uniweb.[bio, pro, ...]`
+1. Create site in the Uniweb App and select your Foundation
+2. Build content using the visual editor
+3. Preview and refine
+4. Click **Publish** when ready
+5. Configure domain:
+   - Use Uniweb subdomain: `yoursite.uniweb.pro`, `yoursite.uniweb.bio`, more
    - Or connect custom domain: `www.yoursite.com`
-5. Confirm pricing based on your Foundation choice
-6. Site goes live immediately
+6. Confirm pricing
+7. Site goes live immediately
 
 **What site owners get:**
 
@@ -317,7 +320,7 @@ Payment is required only when a site is published for production use.
 - Dynamic content storage and delivery
 - Automatic SSL certificates
 - Global CDN distribution for static assets
-- Foundation updates based on version strategy
+- Foundation updates (bug fixes and new features automatically)
 - Integrated analytics
 - Email support
 
@@ -360,9 +363,9 @@ npm run build
 
 This creates a `dist` folder with your Module Federation bundle and schemas.
 
-#### Deploy Foundation Files
+#### Publish Foundation Files
 
-Deploy the `dist` folder contents to any static hosting service.
+Publish the `dist` folder contents to any static hosting service.
 
 **Example with Netlify:**
 
@@ -391,9 +394,9 @@ Your foundation is now accessible at a URL like:
 - `https://my-foundation.vercel.app`
 - `https://cdn.yourcompany.com/foundations/my-foundation`
 
-#### Automated Deployment with GitHub Actions
+#### Automated Publishing with GitHub Actions
 
-For foundations hosted on GitHub, you can automate builds and deployments when you update your version:
+For foundations hosted on GitHub, you can automate builds and deployment when you update your version:
 
 ```bash
 npx uniweb foundation setup-ci
@@ -403,14 +406,14 @@ This creates `.github/workflows/deploy-foundation.yml` that:
 
 1. Watches for changes to `package.json` version on main/master branch
 2. Builds the foundation automatically
-3. Deploys to GitHub Pages
+3. Publishes to GitHub Pages
 4. Makes it accessible at your GitHub Pages URL
 
 **Workflow:**
 
 1. Update version in `package.json`: `"version": "1.2.0"`
 2. Commit and push to main/master
-3. GitHub Actions builds and deploys automatically
+3. GitHub Actions builds and publishes automatically
 4. Foundation available at new version
 
 ---
@@ -439,14 +442,13 @@ Before building, ensure your site configuration points to your foundation's URL.
 ```yaml
 foundation:
   url: https://username.github.io/my-foundation
-  strategy: minor
 ```
 
 The URL should point to where your foundation is hosted.
 
-#### Deploy Site Files
+#### Publish Site Files
 
-Deploy the `dist` folder to any static hosting service (same as foundation deployment).
+Publish the `dist` folder to any static hosting service (same options as foundation).
 
 **Example with Netlify:**
 
@@ -472,8 +474,8 @@ Connect your repository and configure:
 When your site loads, it fetches the foundation from the URL specified in `site.yml`. This happens at runtime via Module Federation, so:
 
 - Foundation and site can be on different hosting services
-- Foundation updates can be deployed independently
-- Sites receive updates based on their version strategy
+- Foundation updates can be published independently
+- Sites receive updates based on semantic versioning
 
 ### Complete Self-Hosted Workflow
 
@@ -487,12 +489,12 @@ When your site loads, it fetches the foundation from the URL specified in `site.
    npx uniweb start
    ```
 
-2. **Build and deploy foundation**
+2. **Build and publish foundation**
 
    ```bash
    cd src/my-foundation
    npm run build
-   # Deploy dist to GitHub Pages, Netlify, etc.
+   # Publish dist to GitHub Pages, Netlify, etc.
    ```
 
 3. **Configure site to use foundation URL**
@@ -503,23 +505,23 @@ When your site loads, it fetches the foundation from the URL specified in `site.
      url: https://your-foundation-url.com
    ```
 
-4. **Build and deploy site**
+4. **Build and publish site**
 
    ```bash
    cd my-site
    npx uniweb build
-   # Deploy dist to GitHub Pages, Netlify, etc.
+   # Publish dist to GitHub Pages, Netlify, etc.
    ```
 
 5. **Updates:**
-   - Deploy new foundation version → sites load it based on strategy
-   - Update site content → rebuild and redeploy site
+   - Publish new foundation version → sites load it automatically
+   - Update site content → rebuild and republish site
 
 **Limitations:**
 
 - No visual editor (CLI-only workflow)
 - No built-in access control
-- Manual deployment required for updates
+- Manual publishing required for updates
 - No Uniweb analytics or managed infrastructure
 
 **Benefits:**
@@ -528,6 +530,58 @@ When your site loads, it fetches the foundation from the URL specified in `site.
 - Zero platform costs
 - Use existing deployment infrastructure
 - Good for open source projects
+
+---
+
+## Foundation Version Management
+
+### Automatic Updates
+
+By default, sites automatically receive Foundation updates that follow semantic versioning:
+
+- **Patch updates** (1.0.x) — Bug fixes, always safe
+- **Minor updates** (1.x.0) — New features/components/parameters, backward compatible
+- **Major updates** (x.0.0) — Breaking changes, require manual opt-in
+
+**For Uniweb App sites:** Updates load instantly on next page visit, no republishing needed.
+
+**For self-hosted sites:** Updates load at runtime based on CDN cache settings.
+
+### Version Strategies (Advanced)
+
+Most sites never need to think about version strategies—the default behavior (accepting patch and minor updates) works well. For special cases where you need different behavior:
+
+**In Uniweb App:** Site Settings → Foundation → Version Strategy  
+**In `site.yml`:** Add strategy configuration
+
+**Available strategies:**
+
+```yaml
+# Default (recommended) - auto-update on bug fixes and new features
+foundation:
+  strategy: minor
+
+# Conservative - only bug fixes
+foundation:
+  strategy: patch
+
+# Aggressive - all updates including breaking changes
+foundation:
+  strategy: latest
+
+# Locked - never update (for debugging)
+foundation:
+  strategy: pinned
+  version: 1.2.3
+```
+
+**When to use non-default strategies:**
+
+- **`patch`** — Critical production site, prefer stability over features
+- **`latest`** — Development site you actively maintain
+- **`pinned`** — Temporarily lock version while debugging an issue
+
+**Note:** Major version updates always require explicit opt-in, regardless of strategy. Foundation creators cannot force breaking changes onto sites.
 
 ---
 
@@ -560,105 +614,9 @@ Contact the Foundation creator to request access.
 
 ---
 
-## Foundation Version Strategies
-
-Site owners control how they receive Foundation updates through version strategies.
-
-**Configure in Uniweb App:**  
-Site Settings → Foundation → Version Strategy
-
-**Or in `site.yml`:**
-
-```yaml
-foundation:
-  url: https://modules.uniweb.app/username/foundation-name
-  strategy: minor
-```
-
-### Available Strategies
-
-**`latest`** — Always use newest version
-
-```yaml
-strategy: latest
-```
-
-- Automatically receive all updates (patches, minor, major)
-- Best for: Development sites, actively maintained sites
-- Risk: Breaking changes may require content updates
-
-**`minor`** — Accept minor and patch updates (Recommended)
-
-```yaml
-strategy: minor
-```
-
-- Receive new features and bug fixes automatically
-- Never receive breaking changes (major versions)
-- Best for: Production sites, managed by content teams
-- Balance of stability and improvements
-
-**`patch`** — Bug fixes only
-
-```yaml
-strategy: patch
-```
-
-- Only receive bug fix updates
-- Skip new features until manually updated
-- Best for: Critical production sites, conservative updates
-- Maximum stability
-
-**`pinned`** — Lock to specific version
-
-```yaml
-strategy: pinned
-version: 1.2.3
-```
-
-- Never update automatically
-- Manual version changes only
-- Best for: Debugging, temporary lock during testing
-- Complete control
-
-### How Version Strategies Work
-
-Version strategies are evaluated **at runtime** when the Foundation loads:
-
-```
-Foundation creator publishes v1.3.0
-
-Site A (strategy: "latest") → Loads v1.3.0 immediately
-Site B (strategy: "minor") → Loads v1.3.0 (minor update from v1.2.x)
-Site C (strategy: "patch") → Stays on v1.2.5 (waits for v1.2.6)
-Site D (strategy: "pinned" to "1.2.3") → Stays on v1.2.3
-```
-
-**For Uniweb App sites:** No redeployment needed. Sites receive updates on their next page load.
-
-**For self-hosted sites:** Updates load at runtime based on version strategy and CDN caching. For immediate updates, you may need to clear CDN cache or wait for cache expiration.
-
-### Changing Version Strategies
-
-Site owners can change version strategies at any time:
-
-**In Uniweb App:**
-
-- Site Settings → Foundation → Version Strategy
-- Select new strategy
-- Changes apply immediately
-
-**In site configuration:**
-
-- Update `site.yml`
-- Rebuild and redeploy site (for self-hosted)
-- Or sync via Uniweb App
-
----
-
 ## Common Workflows
 
-### Workflow 1: Foundation Creator Testing (Managed Path)
+### Workflow 1: Foundation Creator Testing
 
 **Goal:** Build and test a Foundation before client work
 
@@ -670,7 +628,7 @@ npx uniweb create my-project --site demo --module my-foundation
 cd src/my-foundation
 # ... build components, add schemas ...
 
-# 3. Test locally
+# 3. Test locally with demo site
 cd ../..
 npx uniweb start
 # → Preview at http://localhost:3000
@@ -693,9 +651,11 @@ npx uniweb module publish
 **Cost during development:** $0 (drafts are free)  
 **Cost when published:** See [pricing page](https://www.uniweb.app/pricing)
 
+**Note:** The local demo site (`--site demo`) is for testing during development. The production site is created separately in the Uniweb App.
+
 ---
 
-### Workflow 2: Agency Building for Client (Managed Path)
+### Workflow 2: Agency Building for Client
 
 **Goal:** Create custom site for client, then transfer ownership
 
@@ -708,7 +668,7 @@ npx uniweb module publish
 # 2. Create site in Uniweb App
 # → Select your Foundation
 # → Access granted automatically
-# → Build site for client
+# → Build site for client using visual editor
 
 # 3. Set up initial content
 # → Add pages and sample content
@@ -736,7 +696,7 @@ npx uniweb module publish
 
 ---
 
-### Workflow 3: Open Source Project (Self-Hosted Path)
+### Workflow 3: Open Source Project (Self-Hosted)
 
 **Goal:** Build and share an open source foundation and demo site with zero costs
 
@@ -748,7 +708,7 @@ npx uniweb create my-oss-project --site demo --module oss-foundation
 cd src/oss-foundation
 # ... build components, add schemas ...
 
-# 3. Set up GitHub Actions for automatic deployment
+# 3. Set up GitHub Actions for automatic publishing
 npx uniweb foundation setup-ci
 # → Creates .github/workflows/deploy-foundation.yml
 
@@ -756,18 +716,17 @@ npx uniweb foundation setup-ci
 git add .
 git commit -m "Initial foundation"
 git push origin main
-# → GitHub Actions builds and deploys to GitHub Pages
+# → GitHub Actions builds and publishes to GitHub Pages
 
 # 5. Configure demo site to use GitHub Pages URL
 # site.yml:
 # foundation:
 #   url: https://username.github.io/oss-foundation
-#   strategy: latest
 
-# 6. Build and deploy demo site
+# 6. Build and publish demo site
 cd demo-site
 npx uniweb build
-# Deploy dist to Netlify, Vercel, or GitHub Pages
+# Publish dist to Netlify, Vercel, or GitHub Pages
 
 # 7. Share with community
 # → Foundation URL: https://username.github.io/oss-foundation
@@ -777,11 +736,11 @@ npx uniweb build
 
 **Cost:** $0 to Uniweb (only your hosting costs)  
 **Access:** Open to anyone who knows the URL  
-**Updates:** Push to main branch → GitHub Actions deploys automatically
+**Updates:** Push to main branch → GitHub Actions publishes automatically
 
 ---
 
-### Workflow 4: Foundation Updates (Managed Path)
+### Workflow 4: Foundation Updates
 
 **Goal:** Improve Foundation and distribute updates to all sites
 
@@ -791,28 +750,26 @@ cd my-foundation
 # ... fix bugs, add features, improve components ...
 
 # 2. Update version in package.json
-# Before: "version": "1.2.0"
-# After:  "version": "1.3.0"
+# Bug fix: 1.2.0 → 1.2.1 (patch)
+# New feature: 1.2.0 → 1.3.0 (minor)
+# Breaking change: 1.2.0 → 2.0.0 (major)
 
 # 3. Publish update
 npx uniweb module publish
-# → Version 1.3.0 uploaded to registry
+# → New version uploaded to registry
 
 # 4. Sites receive updates automatically
-# Sites with strategy "latest" → Get v1.3.0 immediately
-# Sites with strategy "minor" → Get v1.3.0 (minor update)
-# Sites with strategy "patch" → Stay on v1.2.x
-# Sites with strategy "pinned" → Stay on pinned version
+# Patch/minor: Sites load new version immediately
+# Major: Sites stay on v1.x until manually upgraded
 ```
 
-**No site owner action needed.** Improvements propagate based on each site's version strategy.
+**No site owner action needed** for bug fixes and new features. Updates propagate automatically.
 
 **Communication best practice:**
 
 - Notify site owners about significant updates
 - Document changes in release notes
 - Highlight new features or important fixes
-- Recommend version strategy adjustments when appropriate
 
 ---
 
@@ -826,26 +783,38 @@ cd my-foundation
 # ... make breaking changes ...
 # Update package.json: "version": "2.0.0"
 
-# 2. Publish v2 (managed path) or deploy v2 (self-hosted)
+# 2. Publish v2
 npx uniweb module publish
-# Or deploy to your hosting for self-hosted
+# → Version 2.0.0 in registry
 
 # 3. Existing sites remain on v1.x automatically
-# No version strategy accepts major versions automatically
-# All sites stay on v1.x.x (safe)
+# Sites never auto-update to major versions
+# All sites stay on latest v1.x.x (safe)
 
-# 4. Migrate sites individually
-# Site owners update configuration to v2:
-#   { strategy: "minor" } → eventually crosses to v2.x
-#   Or { strategy: "pinned", version: "2.0.0" } → explicit v2
+# 4. Sites migrate individually when ready
+# Site owners explicitly update to v2
+# Or Foundation creator assists with migration
 ```
 
 **Alternative approach:** Publish v2 as entirely new Foundation
 
 - `my-foundation-v2` as separate foundation
 - Clearer separation between versions
-- No version strategy confusion
 - Easier to maintain both versions simultaneously
+
+---
+
+## Advanced: Local Development with Tunnel Mode
+
+For debugging issues that only occur with App site content, Uniweb App supports tunnel mode where a site temporarily loads the Foundation from your local development environment.
+
+**Use cases:**
+
+- Debugging issues that only appear with production content
+- Testing Foundation changes with real site data before publishing
+- Rapid iteration on fixes for client-specific issues
+
+Learn more: [Development Tunnels Documentation](https://docs.framework.uniweb.app/tunnels)
 
 ---
 
@@ -856,9 +825,9 @@ npx uniweb module publish
 **Versioning:**
 
 - Follow semantic versioning strictly
-- Patch (1.0.x) — Bug fixes only
-- Minor (1.x.0) — New features, backward compatible
-- Major (x.0.0) — Breaking changes
+- Patch (1.0.x) — Bug fixes only, never breaks existing content
+- Minor (1.x.0) — New features/components/parameters, always backward compatible
+- Major (x.0.0) — Breaking changes only
 
 **Quality:**
 
@@ -871,7 +840,7 @@ npx uniweb module publish
 
 - Notify site owners of significant updates
 - Maintain changelog
-- Document breaking changes clearly
+- Document breaking changes clearly (for major versions)
 - Provide migration guides for major versions
 
 **Maintenance:**
@@ -883,18 +852,12 @@ npx uniweb module publish
 
 ### For Site Owners
 
-**Version Strategy Selection:**
+**Updates:**
 
-- **Start with `"minor"`** (recommended default)
-- Use `"patch"` for critical production sites
-- Use `"latest"` only for sites you actively maintain
-- Use `"pinned"` temporarily when debugging
-
-**Testing:**
-
-- Test Foundation updates in staging before production
-- Monitor site after automatic updates
-- Have rollback plan (change to pinned strategy if needed)
+- Trust the default update strategy (patch + minor)
+- Monitor Foundation changelogs for significant updates
+- Test updates in staging if available
+- Have rollback plan (pin to previous version if needed)
 
 **Relationship with Foundation Creator:**
 
@@ -924,7 +887,7 @@ npx uniweb module publish
 
 1. **Managed path:** Verify Foundation URL in Uniweb App site settings
 2. **Self-hosted:** Verify Foundation URL in `site.yml` is correct and accessible
-3. Confirm Foundation is published/deployed
+3. Confirm Foundation is published
 4. Check Foundation creator's username (case-sensitive for registry)
 5. Verify hosting service is serving files correctly
 
@@ -950,10 +913,8 @@ npx uniweb module publish
 **Solutions:**
 
 1. Check available versions: `npx uniweb module info foundation-name`
-2. Update version strategy to available version
-3. Contact Foundation creator if specific version needed
-4. Temporarily use `"pinned"` strategy with known working version
-5. **Self-hosted:** Verify the version is actually deployed to your hosting
+2. Contact Foundation creator if specific version needed
+3. **Self-hosted:** Verify the version is actually published to your hosting
 
 ---
 
@@ -997,7 +958,7 @@ npx uniweb module publish
 
 1. Check Foundation changelog for changes
 2. Review component parameter updates
-3. Temporarily pin to previous version: `{ strategy: "pinned", version: "1.2.5" }`
+3. Temporarily pin to previous version if needed
 4. Contact Foundation creator about unexpected changes
 5. Update content to work with new Foundation version
 6. Or request fix from Foundation creator
@@ -1089,7 +1050,6 @@ foundation:
   url: https://modules.uniweb.app/username/foundation-name
   # Or for self-hosted:
   # url: https://your-hosting.com/foundation-path
-  strategy: minor
 
 site:
   title: Site Title
