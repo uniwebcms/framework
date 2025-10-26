@@ -1,8 +1,8 @@
 # Uniweb Framework
 
-A web development framework built on separation of concerns. **Content** lives in sites — markdown files and assets. **Foundations** provide the React components that render that content.
+A web development framework built on separation of concerns. **Content** lives in sites—markdown files and assets. **Foundations** provide the React components that render that content.
 
-This architecture means content teams and developers work independently — content editors compose pages using intuitive components, developers build those components.
+This architecture means content teams and developers work independently—content editors compose pages using intuitive components, developers build those components.
 
 ## Quick Start
 
@@ -32,6 +32,8 @@ Visit `http://localhost:3000/sites/main/` to see your site.
 
 > Want to start from scratch? Omit `--template` for a minimal project, then add sites and modules as needed.
 
+> **Foundations scale to your needs.** Build a minimal Foundation for a single site (React + markdown, like any static site generator) or create a comprehensive design system with presets, theming, and visual editor integration. The framework supports the entire spectrum—from hardcoded components for one project to product-grade Foundations serving multiple sites with content creators who never touch code.
+
 ## Core Concepts
 
 ### Sites and Foundations
@@ -45,6 +47,8 @@ Each site primarily links to one Foundation (local or remote) that provides the 
 ### Foundation Interfaces
 
 A Foundation's _interface_ is the set of components it exposes and their available options. These exposed components are what you can reference in markdown frontmatter. When you write `component: HeroSection`, that component must be in your Foundation's interface. Internal components are implementation details that content teams never reference directly.
+
+**Schemas enable visual editor integration.** Component schemas aren't just metadata—they're runtime contracts that make your components native to visual editors. When content creators use the Uniweb App, your Foundation's components appear as first-class building blocks with your parameters becoming visual controls, your presets becoming one-click starting points, and changes previewing instantly. Your custom design system becomes the editor's interface for that site.
 
 ### Content-Driven Rendering
 
@@ -63,6 +67,8 @@ Discover innovative solutions for your business.
 ```
 
 At runtime, the Framework connects your content with the appropriate component from your Foundation.
+
+**Static and dynamic content.** While content is markdown-first, you're not limited to static pages. Frontmatter can specify dynamic data sources—APIs, databases, CMS integrations. The framework handles data fetching and provides it to your components, so you can build everything from static marketing sites to dynamic dashboards with the same content-first architecture.
 
 ## Workspace Organization
 
@@ -154,20 +160,22 @@ uniweb create my-project
 
 ## Why Uniweb Framework?
 
-**Build plug-and-play Foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically.
+**Build plug-and-play Foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically based on their version strategy—improvements propagate without redeployment.
 
-**Components without the complexity.** A lightweight JavaScript engine runs in every site and provides all the typical code — localization, analytics, data fetching, forms, uploads. You just write components that receive preprocessed content and render it.
+**Components that scale to your needs.** Build hardcoded components for a single site or create parameterized components that content creators configure. Start with minimal schemas (just component names) and add parameters, presets, and validation as your needs grow. The framework supports the entire continuum—from site-specific React components to comprehensive design systems for content creators.
 
-**Standard React workflow.** Use any packages, styles, or tools you prefer. The Framework scaffolds a normal React project — no vendor lock-in.
+**Components without the complexity.** A lightweight JavaScript engine runs in every site and provides all the typical infrastructure—localization, analytics, data fetching, forms, uploads. You just write components that receive preprocessed content and render it.
 
-**Component schemas define the contract.** Every exposed component requires a schema file—at minimum, defining the component's name. Rich schemas that specify parameters, options, and validation unlock powerful features:
+**Standard React workflow.** Use any packages, styles, or tools you prefer. The Framework scaffolds a normal React project—no vendor lock-in.
+
+**Component schemas define the contract.** Every exposed component requires a schema file—at minimum, defining the component's name. This minimal schema is enough for hardcoded components in single-site projects. Rich schemas that specify parameters, options, and validation unlock powerful features:
 
 - Content teams can configure components through frontmatter options
 - The build process validates frontmatter against your schema
 - The Uniweb App integrates your components as native building blocks in its visual editor
 - Your Foundation's complete interface is defined by all component schemas plus Foundation-level settings
 
-Start with minimal schemas during development. Add parameters and options as your components mature. The schema defines what content teams can achieve with each component—from hardcoded sections (minimal schema) to fully configurable building blocks (rich schema).
+Start with minimal schemas during development. Add parameters and options as your components mature and your use case expands—for flexibility across related sites, for content creator empowerment, or for deep visual editor integration. The schema defines what content teams can achieve with each component, scaled to your project's requirements.
 
 ### The Power of Specialization
 
@@ -175,7 +183,7 @@ Build one Foundation for a vertical (documentation, marketing, corporate, medica
 
 **Developers maintain Foundations.** Build and refine components without managing individual client content.
 
-**Content teams manage content.** Work with Git and Markdown, or use the [Uniweb App](https://uniweb.app) for a professional visual editing experience. Components are built by developers; content teams use them without touching code.
+**Content teams manage content.** Work with Git and Markdown, or use the [Uniweb App](https://uniweb.app) for a professional visual editing experience. Components are built by developers; content teams compose with them as if they were native app features—no code required.
 
 This separation eliminates bottlenecks and lets each team focus on their expertise.
 
@@ -219,7 +227,7 @@ This comprehensive setup eliminates hours of configuration work, allowing you to
 
 ### Module Federation
 
-Webpack technology enabling Foundations to load dynamically at runtime and share dependencies with host sites. Allows Foundation updates to propagate instantly — improve your Foundation, and sites get the update on their next page load based on their version strategy.
+Webpack technology enabling Foundations to load dynamically at runtime and share dependencies with host sites. Allows Foundation updates to propagate instantly—improve your Foundation, and sites get the update on their next page load based on their version strategy.
 
 ### Version Strategy
 
