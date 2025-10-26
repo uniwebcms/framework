@@ -843,7 +843,7 @@ For debugging issues that only occur with App site content, Uniweb App supports 
 - Testing Foundation changes with real site data before publishing
 - Rapid iteration on fixes for client-specific issues
 
-Learn more: [Development Tunnels Documentation](https://docs.framework.uniweb.app/tunnels)
+Learn more: [Testing Guide](testing-guide.md)
 
 ---
 
