@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import updateNotifier from "update-notifier";
 import { getPackageData } from "./utils/package.js";
 import { ToolHandler } from "@uniwebcms/dev-tools";
 import chalk from "chalk";
@@ -14,6 +15,16 @@ try {
     packageName: packageData.name,
     peerDependencies: packageData.peerDependencies,
   };
+
+  // Check for updates - non-blocking
+  updateNotifier({
+    pkg: packageData,
+    // updateCheckInterval: 1000 * 60 * 60 * 24, // 1 day (default)
+    updateCheckInterval: 1000 * 60 * 2, // 2 minutes
+  }).notify({
+    // isGlobal: true, // Suggest global install command
+    // defer: false, // Show immediately (default: true shows on exit)
+  });
 
   const program = new Command();
   const toolHandler = new ToolHandler();
