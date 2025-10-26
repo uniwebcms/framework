@@ -1,6 +1,6 @@
 {
   "name": "@uniwebcms/framework",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Collect and process website content from a folder structure",
   "type": "module",
   "main": "src/index.js",
