@@ -189,27 +189,30 @@ This separation eliminates bottlenecks and lets each team focus on their experti
 
 ## Deployment
 
-**Publish your Foundation to the registry:**
+Publish your Foundation and create a live site in 5 minutes.
+
+### Publish Foundation to Registry
 
 ```bash
+# Authenticate (creates account if needed)
+npx uniweb login
+
+# Publish your foundation
+cd src/my-foundation
 npx uniweb module publish
 ```
 
-Once published, content teams can create sites using your Foundation through the Uniweb App or by linking to your published module URL.
+### Create and Publish Site
 
-**Deploy your site:**
+1. Go to [uniweb.app](https://uniweb.app)
+2. Click **Create Site**
+3. Select your foundation
+4. Build content with visual editor
+5. Click **Publish**
 
-Use the Uniweb App for integrated hosting, or build and deploy to any static host:
+Done! Your site is live with managed hosting, visual editor, and automatic updates.
 
-```bash
-npx uniweb build
-```
-
-The `dist` folder contains everything needed for deployment to GitHub Pages, Netlify, Vercel, or any other static hosting service.
-
-<!-- See the [deployment guide](https://docs.framework.uniweb.app/deployment) for detailed options. -->
-
-See the [deployment guide](docs/deployment-guide.md) for detailed options.
+**Looking for self-hosted sites?** See the [deployment guide](docs/deployment-guide.md) for detailed options.
 
 ## Architecture
 

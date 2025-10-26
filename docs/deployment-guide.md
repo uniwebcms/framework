@@ -48,6 +48,35 @@ This separation means foundation creators can focus on design systems while site
 
 ---
 
+## Quick Start
+
+Publish your Foundation and create a live site in 5 minutes.
+
+### Publish Foundation to Registry
+
+```bash
+# Authenticate (creates account if needed)
+npx uniweb login
+
+# Publish your foundation
+cd src/my-foundation
+npx uniweb module publish
+```
+
+### Create and Publish Site
+
+1. Go to [uniweb.app](https://uniweb.app)
+2. Click **Create Site**
+3. Select your foundation
+4. Build content with visual editor
+5. Click **Publish**
+
+Done! Your site is live with managed hosting, visual editor, and automatic updates.
+
+**For agencies:** Transfer site ownership to your client when ready. Access to your foundation persists with the site.
+
+---
+
 ## Deployment Paths
 
 You have two distinct approaches for publishing foundations and sites:
