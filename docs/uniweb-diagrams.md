@@ -5,36 +5,37 @@ This document provides visual diagrams to help understand the core architectural
 ## 1. The Foundation Boundary: Exposed vs Internal Components
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#10b981','primaryTextColor':'#fff','primaryBorderColor':'#059669','lineColor':'#6b7280','secondaryColor':'#3b82f6','tertiaryColor':'#e0f2fe','fontSize':'14px'}}}%%
 graph TB
-    subgraph "Content Creator World"
-        MD[Markdown Frontmatter]
-        style MD fill:#e1f5ff
+    subgraph CC["🎨 Content Creator World"]
+        MD[Markdown<br/>Frontmatter]
+        style MD fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
     end
-    
-    subgraph "Foundation Boundary"
+
+    subgraph FB["🏛️ Foundation Boundary"]
         direction TB
-        subgraph "Exposed Components (Content-Facing Interface)"
-            HERO[HeroSection<br/>schema ✓]
-            FEAT[FeatureGrid<br/>schema ✓]
-            CTA[CallToAction<br/>schema ✓]
-            style HERO fill:#4caf50
-            style FEAT fill:#4caf50
-            style CTA fill:#4caf50
+        subgraph EC["✨ Exposed Components"]
+            HERO[Hero<br/>✓ schema]
+            FEAT[Features<br/>✓ schema]
+            CTA[CTA<br/>✓ schema]
+            style HERO fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+            style FEAT fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+            style CTA fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
         end
-        
-        subgraph "Internal Components (Developer Implementation)"
+
+        subgraph IC["⚙️ Internal Components"]
             BTN[Button]
             CARD[Card]
             ICON[Icon]
-            GRID[GridLayout]
-            NPM[npm packages<br/>UI libraries<br/>utilities]
-            style BTN fill:#90caf9
-            style CARD fill:#90caf9
-            style ICON fill:#90caf9
-            style GRID fill:#90caf9
-            style NPM fill:#b0bec5
+            GRID[Grid]
+            NPM[npm libs<br/>& tools]
+            style BTN fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+            style CARD fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+            style ICON fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+            style GRID fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+            style NPM fill:#64748b,stroke:#475569,stroke-width:2px,color:#fff
         end
-        
+
         HERO --> BTN
         HERO --> ICON
         FEAT --> CARD
@@ -43,253 +44,291 @@ graph TB
         BTN --> NPM
         CARD --> NPM
     end
-    
-    MD -.references.-> HERO
-    MD -.references.-> FEAT
-    MD -.references.-> CTA
-    
-    classDef contentWorld fill:#e1f5ff,stroke:#0288d1
-    classDef exposedComp fill:#4caf50,stroke:#2e7d32
-    classDef internalComp fill:#90caf9,stroke:#1976d2
+
+    MD -.uses.-> HERO
+    MD -.uses.-> FEAT
+    MD -.uses.-> CTA
+
+    style CC fill:#f0f9ff,stroke:#0ea5e9,stroke-width:2px
+    style FB fill:#fafafa,stroke:#a3a3a3,stroke-width:2px,stroke-dasharray: 5 5
+    style EC fill:#ecfdf5,stroke:#059669,stroke-width:2px
+    style IC fill:#eff6ff,stroke:#1d4ed8,stroke-width:2px
 ```
 
-**Key insight:** Content creators only interact with exposed components (green). Internal components (blue) are pure React implementation details using standard npm packages and composition patterns.
+**💡 Key insight:** Content creators only interact with exposed components (green). Internal components (blue) are implementation details using standard npm packages.
 
 ## 2. Traditional Component Library vs Foundation
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#f59e0b','secondaryColor':'#10b981','tertiaryColor':'#e0f2fe','fontSize':'14px','edgeLabelBackground':'rgba(255, 255, 255, 0.7)'}}}%%
 graph LR
-    subgraph "Traditional Component Library"
+    subgraph TL["📦 Traditional Library"]
         direction TB
-        DEV1[Developer] -->|imports in code| LIB[Component Library]
-        LIB -->|exports components| DEV2[Developer]
-        DEV2 -->|writes JSX| APP[Application]
+        DEV1[Dev] -->|import| LIB[Library]
+        LIB -->|export| DEV2[Dev]
+        DEV2 -->|JSX| APP[App]
+        style LIB fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff
+        style DEV1 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+        style DEV2 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+        style APP fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#7c2d12
     end
-    
-    subgraph "Uniweb Foundation"
+
+    subgraph UF["✨ Uniweb Foundation"]
         direction TB
-        DEV3[Developer] -->|builds| FOUND[Foundation]
-        FOUND -->|exposes via schema| INT[Content Interface]
-        CONTENT[Content Creator] -->|writes frontmatter| INT
-        INT -->|renders| SITE[Site]
+        DEV3[Dev] -->|build| FOUND[Foundation]
+        FOUND -->|expose| INT[Interface]
+        CONTENT[Creator] -->|config| INT
+        INT -->|render| SITE[Site]
+        style FOUND fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+        style INT fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+        style DEV3 fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+        style CONTENT fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
+        style SITE fill:#6ee7b7,stroke:#059669,stroke-width:2px,color:#064e3b
     end
-    
-    style LIB fill:#ffb74d
-    style FOUND fill:#4caf50
-    style INT fill:#4caf50,stroke:#2e7d32,stroke-width:3px
+
+    style TL fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
+    style UF fill:#ecfdf5,stroke:#10b981,stroke-width:2px
 ```
 
-**Key insight:** Traditional libraries have developer-to-developer interfaces. Foundations have content-facing interfaces designed for declarative composition.
+**💡 Key insight:** Traditional libraries have dev-to-dev interfaces. Foundations have content-facing interfaces for declarative composition.
 
 ## 3. Content Flow: From Markdown to Rendered Site
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'actorBkg':'#e0f2fe','actorBorder':'#0ea5e9','actorTextColor':'#0c4a6e','noteBkgColor':'#fef3c7','noteTextColor':'#78350f','activationBkgColor':'#10b981','fontSize':'13px'}}}%%
 sequenceDiagram
-    participant CC as Content Creator
-    participant MD as Markdown File
-    participant FW as Uniweb Framework
-    participant FOUND as Foundation
-    participant SITE as Rendered Site
-    
-    CC->>MD: Writes content with frontmatter
-    Note over MD: ---<br/>component: HeroSection<br/>layout: centered<br/>---
-    
-    MD->>FW: Content at runtime
-    FW->>FW: Parse frontmatter<br/>Extract component reference
-    FW->>FOUND: Request HeroSection component
-    
-    alt Component exists in schema
-        FOUND->>FW: Returns component
-        FW->>FW: Validate options<br/>Preprocess content
-        FW->>FOUND: Render with processed data
-        FOUND->>SITE: Rendered component
-    else Component not in schema
-        FW->>CC: Build error:<br/>Component not exposed
+    participant CC as 👤 Creator
+    participant MD as 📝 Markdown
+    participant FW as ⚡ Framework
+    participant FD as 🏛️ Foundation
+    participant ST as 🌐 Site
+
+    CC->>MD: Write content
+    Note over MD: component: Hero<br/>layout: centered
+
+    MD->>FW: Parse
+    FW->>FW: Extract ref
+    FW->>FD: Request Hero
+
+    alt ✅ Valid
+        FD->>FW: Component
+        FW->>FW: Validate
+        FW->>FD: Render
+        FD->>ST: Output
+    else ❌ Invalid
+        FW->>CC: Error:<br/>Not exposed
     end
 ```
 
-**Key insight:** The Framework acts as the bridge, validating that content references exist in the Foundation's schema before rendering.
+**💡 Key insight:** The Framework validates that content references exist in the Foundation's schema before rendering.
 
 ## 4. Foundation Serving Multiple Sites
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#10b981','secondaryColor':'#3b82f6','fontSize':'14px','edgeLabelBackground':'#fff'}}}%%
 graph TB
-    DEV[Developer]
-    
-    subgraph FOUND["Foundation (Single Source of Truth)"]
-        direction TB
+    DEV[👨‍💻 Dev]
+    style DEV fill:#64748b,stroke:#475569,stroke-width:2px,color:#fff
+
+    subgraph FD["🏛️ Foundation"]
         COMP[Components]
         SCHEMA[Schemas]
         THEME[Themes]
-        style FOUND fill:#4caf50,stroke:#2e7d32,stroke-width:3px
+        style COMP fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+        style SCHEMA fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+        style THEME fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
     end
-    
-    DEV -->|builds & updates| FOUND
-    
-    FOUND -->|Module Federation| SITE1[Site A<br/>version: latest]
-    FOUND -->|Module Federation| SITE2[Site B<br/>version: ^1.2.0]
-    FOUND -->|Module Federation| SITE3[Site C<br/>version: 1.1.5]
-    
-    style SITE1 fill:#90caf9
-    style SITE2 fill:#90caf9
-    style SITE3 fill:#90caf9
-    
-    CONTENT1[Content Team A] -.edits.-> SITE1
-    CONTENT2[Content Team B] -.edits.-> SITE2
-    CONTENT3[Content Team C] -.edits.-> SITE3
+
+    style FD fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+
+    DEV -->|build & update| FD
+
+    FD -->|Module Fed| S1[Site A<br/>latest]
+    FD -->|Module Fed| S2[Site B<br/>^1.2.0]
+    FD -->|Module Fed| S3[Site C<br/>1.1.5]
+
+    style S1 fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+    style S2 fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+    style S3 fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
+
+    T1[Team A] -.edit.-> S1
+    T2[Team B] -.edit.-> S2
+    T3[Team C] -.edit.-> S3
+
+    style T1 fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
+    style T2 fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
+    style T3 fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
 ```
 
-**Key insight:** One Foundation serves multiple sites. Each site controls its update strategy through version configuration. Updates propagate at runtime without site redeployment.
+**💡 Key insight:** One Foundation serves multiple sites. Each controls its update strategy via version config. Updates propagate at runtime without redeployment.
 
 ## 5. The Two Worlds Connected by Foundation
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#10b981','fontSize':'14px'}}}%%
 graph TD
-    subgraph "Developer World"
+    subgraph DW["💻 Developer World"]
         direction TB
-        REACT[React Components]
-        NPM[npm Packages]
-        JS[JavaScript/TypeScript]
-        BUILD[Build Tools]
-        REACT --> CODE[Code Implementation]
+        REACT[React]
+        NPM[npm]
+        JS[JS/TS]
+        BUILD[Tools]
+        REACT --> CODE[Code]
         NPM --> CODE
         JS --> CODE
         BUILD --> CODE
-        style REACT fill:#61dafb
-        style NPM fill:#cb3837
-        style JS fill:#f7df1e
-        style BUILD fill:#8dd6f9
+        style REACT fill:#61dafb,stroke:#0891b2,stroke-width:2px
+        style NPM fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
+        style JS fill:#f59e0b,stroke:#d97706,stroke-width:2px
+        style BUILD fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#fff
+        style CODE fill:#64748b,stroke:#475569,stroke-width:2px,color:#fff
     end
-    
-    subgraph "Foundation Bridge"
-        CODE --> EXPOSED[Exposed Components<br/>with Schemas]
-        EXPOSED --> INTERFACE[Content-Facing Interface]
-        style EXPOSED fill:#4caf50,stroke:#2e7d32,stroke-width:3px
-        style INTERFACE fill:#4caf50,stroke:#2e7d32,stroke-width:3px
+
+    subgraph BR["🌉 Foundation Bridge"]
+        CODE --> EXP[Exposed<br/>Components]
+        EXP --> INT[Interface]
+        style EXP fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
+        style INT fill:#10b981,stroke:#059669,stroke-width:3px,color:#fff
     end
-    
-    subgraph "Content Creator World"
+
+    subgraph CW["✍️ Content World"]
         direction TB
-        INTERFACE --> FRONT[Frontmatter Configuration]
-        INTERFACE --> VISUAL[Visual Editor]
-        FRONT --> PAGES[Composed Pages]
-        VISUAL --> PAGES
-        PAGES --> PUBLISH[Published Sites]
-        style FRONT fill:#e1f5ff
-        style VISUAL fill:#e1f5ff
-        style PAGES fill:#e1f5ff
-        style PUBLISH fill:#81c784
+        INT --> SEL[Select]
+        INT --> VIS[Editor]
+        SEL --> PAGE[Pages]
+        VIS --> PAGE
+        PAGE --> PUB[Sites]
+        style SEL fill:#bfdbfe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+        style VIS fill:#bfdbfe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+        style PAGE fill:#93c5fd,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+        style PUB fill:#6ee7b7,stroke:#10b981,stroke-width:2px,color:#064e3b
     end
+
+    style DW fill:#f8fafc,stroke:#64748b,stroke-width:2px,color:#000
+    style BR fill:#0ca06f,stroke:#059669,stroke-width:3px,color:#fff
+    style CW fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#000
 ```
 
-**Key insight:** Foundations bridge two worlds. Developers work with code and npm packages. Content creators work with declarative configuration and visual editors. The schema-defined interface connects them.
+**💡 Key insight:** Foundations bridge developers (code/npm) and creators (config/editors). The schema-defined interface connects them.
 
 ## 6. Schema-Driven Architecture
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#10b981','secondaryColor':'#3b82f6','fontSize':'14px','edgeLabelBackground':'rgba(255, 255, 255, 0.8)'}}}%%
 graph LR
-    subgraph "Component Schema"
+    subgraph SC["📋 Schema"]
         direction TB
-        NAME[Component Name]
-        PARAMS[Parameters]
-        PRESETS[Presets]
-        VALID[Validation Rules]
-        style NAME fill:#4caf50
-        style PARAMS fill:#4caf50
-        style PRESETS fill:#4caf50
-        style VALID fill:#4caf50
+        N[Name]
+        P[Params]
+        PR[Presets]
+        V[Rules]
+        style N fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+        style P fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+        style PR fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+        style V fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
     end
-    
-    NAME -->|enables| REF[Content References<br/>component: HeroSection]
-    PARAMS -->|enables| CONF[Frontmatter Config<br/>layout: centered]
-    PRESETS -->|enables| QUICK[Quick Start Templates]
-    VALID -->|enables| CHECK[Build Validation]
-    
-    REF --> USE1[Markdown Composition]
-    CONF --> USE1
-    QUICK --> USE2[Visual Editor UI]
-    CHECK --> USE3[Type Safety]
-    
-    style USE1 fill:#e1f5ff
-    style USE2 fill:#e1f5ff
-    style USE3 fill:#ffb74d
+
+    N -->|enable| R[References]
+    P -->|enable| C[Config]
+    PR -->|enable| Q[Templates]
+    V -->|enable| CH[Validation]
+
+    R --> U1[Markdown]
+    C --> U1
+    Q --> U2[Editor UI]
+    CH --> U3[Safety]
+
+    style R fill:#6ee7b7,stroke:#10b981,stroke-width:2px,color:#064e3b
+    style C fill:#6ee7b7,stroke:#10b981,stroke-width:2px,color:#064e3b
+    style Q fill:#6ee7b7,stroke:#10b981,stroke-width:2px,color:#064e3b
+    style CH fill:#6ee7b7,stroke:#10b981,stroke-width:2px,color:#064e3b
+
+    style U1 fill:#bfdbfe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    style U2 fill:#bfdbfe,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    style U3 fill:#fcd34d,stroke:#f59e0b,stroke-width:2px,color:#78350f
+
+    style SC fill:#ecfdf5,stroke:#10b981,stroke-width:2px
 ```
 
-**Key insight:** The component schema is the contract. It defines what content creators can reference, configure, and validates at build time. It also powers visual editor integration.
+**💡 Key insight:** The schema is the contract. It defines what creators can reference, configure, and validates at build time. Powers editor integration.
 
 ## 7. Update Propagation Flow
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'actorBkg':'#e0f2fe','noteBkgColor':'#ecfdf5','activationBkgColor':'#10b981','fontSize':'13px'}}}%%
 sequenceDiagram
-    participant DEV as Developer
-    participant FOUND as Foundation
-    participant REG as Module Federation
-    participant SITE1 as Site (auto)
-    participant SITE2 as Site (minor)
-    participant SITE3 as Site (pinned)
-    
-    DEV->>FOUND: Update component<br/>v1.2.3 → v1.3.0
-    FOUND->>REG: Publish v1.3.0
-    
-    Note over SITE1: version: "latest"
-    REG->>SITE1: Load v1.3.0<br/>✓ Immediate update
-    
-    Note over SITE2: version: "^1.2.0"
-    REG->>SITE2: Load v1.3.0<br/>✓ Minor update allowed
-    
-    Note over SITE3: version: "1.2.3"
-    REG->>SITE3: Load v1.2.3<br/>⊘ Pinned version
-    
-    DEV->>FOUND: Update component<br/>v1.3.0 → v2.0.0
-    FOUND->>REG: Publish v2.0.0
-    
-    REG->>SITE1: Load v2.0.0<br/>✓ Immediate update
-    REG->>SITE2: Load v1.3.0<br/>⊘ Major blocked
-    REG->>SITE3: Load v1.2.3<br/>⊘ Pinned version
+    participant D as 👨‍💻 Dev
+    participant F as 🏛️ Found
+    participant M as 📦 ModFed
+    participant A as 🟢 Auto
+    participant Mi as 🟡 Minor
+    participant P as 🔴 Pin
+
+    Note over D,F: Phase 1: Minor v1.3.0
+    D->>F: Update
+    F->>M: Publish
+
+    Note over A: latest
+    M->>A: ✅ v1.3.0
+
+    Note over Mi: ^1.2.0
+    M->>Mi: ✅ v1.3.0
+
+    Note over P: 1.2.3
+    M->>P: 📌 v1.2.3
+
+    Note over D,F: Phase 2: Major v2.0.0
+    D->>F: Update
+    F->>M: Publish
+
+    M->>A: ✅ v2.0.0
+    M->>Mi: ⛔ v1.3.0
+    M->>P: 📌 v1.2.3
 ```
 
-**Key insight:** Sites control how updates propagate through version strategies. Module Federation loads the appropriate version at runtime—no site redeployment needed.
+**💡 Key insight:** Sites control update propagation via version strategies. Module Federation loads appropriate versions at runtime—no redeployment needed.
 
 ## 8. Progressive Complexity Spectrum
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
 graph LR
-    subgraph "Simple"
+    subgraph S["🌱 Simple"]
         direction TB
         S1[Single Site]
-        S2[Hardcoded Components]
-        S3[Minimal Schemas<br/>name only]
-        S4[Developer-Only Team]
-        style S1 fill:#c8e6c9
-        style S2 fill:#c8e6c9
-        style S3 fill:#c8e6c9
-        style S4 fill:#c8e6c9
+        S2[Hardcoded]
+        S3[Min Schema]
+        S4[Dev Only]
+        style S1 fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+        style S2 fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+        style S3 fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
+        style S4 fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#064e3b
     end
-    
-    subgraph "Intermediate"
+
+    subgraph M["🌿 Intermediate"]
         direction TB
-        M1[Few Related Sites]
-        M2[Parameterized Components]
-        M3[Schema Options<br/>+ validation]
-        M4[Small Content Team]
-        style M1 fill:#fff59d
-        style M2 fill:#fff59d
-        M3 fill:#fff59d
-        M4 fill:#fff59d
+        M1[Few Sites]
+        M2[Params]
+        M3[Options]
+        M4[Small Team]
+        style M1 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+        style M2 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+        style M3 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+        style M4 fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
     end
-    
-    subgraph "Complex"
+
+    subgraph C["🌳 Complex"]
         direction TB
-        C1[Many Client Sites]
-        C2[Design System]
-        C3[Rich Schemas<br/>+ presets + theming]
-        C4[Large Content Teams<br/>+ Visual Editor]
-        style C1 fill:#ffab91
-        style C2 fill:#ffab91
-        style C3 fill:#ffab91
-        style C4 fill:#ffab91
+        C1[Many Sites]
+        C2[System]
+        C3[Rich]
+        C4[Large Team]
+        style C1 fill:#fecaca,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+        style C2 fill:#fecaca,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+        style C3 fill:#fecaca,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+        style C4 fill:#fecaca,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
     end
-    
+
     S1 --> M1
     M1 --> C1
     S2 --> M2
@@ -298,9 +337,13 @@ graph LR
     M3 --> C3
     S4 --> M4
     M4 --> C4
+
+    style S fill:#ecfdf5,stroke:#10b981,stroke-width:2px
+    style M fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
+    style C fill:#fee2e2,stroke:#dc2626,stroke-width:2px
 ```
 
-**Key insight:** Start simple (single site, minimal schemas) and grow as needs evolve. The framework supports the entire spectrum without requiring architectural rewrites.
+**💡 Key insight:** Start simple and grow. The framework supports the entire spectrum without architectural rewrites.
 
 ---
 
@@ -308,11 +351,11 @@ graph LR
 
 These diagrams illustrate the core architectural principles of Uniweb:
 
-1. **Boundary-based design**: Clear separation between exposed (content-facing) and internal (developer) components
-2. **Dual interfaces**: Traditional code interfaces for internal development, declarative interfaces for content creators
-3. **Schema as contract**: Component schemas define the content-facing API and enable validation and tooling
-4. **Single source of truth**: One Foundation serves many sites with controlled update propagation
-5. **Two-world bridge**: Connects the developer ecosystem (React, npm) with the content creator ecosystem (markdown, visual editors)
-6. **Progressive complexity**: Supports everything from simple single-site projects to enterprise design systems
+1. **🏗️ Boundary-based design**: Clear separation between exposed (content-facing) and internal (developer) components
+2. **🔄 Dual interfaces**: Traditional code interfaces for internal development, declarative interfaces for content creators
+3. **📋 Schema as contract**: Component schemas define the content-facing API and enable validation and tooling
+4. **🎯 Single source of truth**: One Foundation serves many sites with controlled update propagation
+5. **🌉 Two-world bridge**: Connects the developer ecosystem (React, npm) with the content creator ecosystem (markdown, visual editors)
+6. **📈 Progressive complexity**: Supports everything from simple single-site projects to enterprise design systems
 
-The Foundation is the bridge that connects these concepts, providing a content-facing interface while maintaining standard React development practices internally.
+**The Foundation is the bridge** that connects these concepts, providing a content-facing interface while maintaining standard React development practices internally.
