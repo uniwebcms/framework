@@ -1,16 +1,14 @@
 # Testing Guide
 
-You can test your components using three different approaches, each suited to different development needs. All testing methods use Dev Mode, which allows you to connect unregistered Foundations to websites for development purposes.
+You can test your components using three different approaches, each suited to different development needs.
 
 1. **Local Development:** test using a **local mock site**
 2. **Local Development with Tunnel:** create a **public tunnel** to your localhost and connect a uniweb.app website to your **locally hosted Foundation**
-3. **GitHub Pages:** deploy your Foundation **without a local setup** and connect it to a **real website**
+3. **GitHub Actions:** deploy your Foundation **without a local setup** using GitHub actions
 
 Each of these approaches is explained below.
 
-**⚠ Important**: When you're ready for production, you'll can register your Foundation as explained in the [Publishing section](#publishing-your-Foundation).
-
-## 1. Uniweb RTE (Runtime Engine)
+## 1. Local Development
 
 A simple and effective testing technique for new components is to work with them locally using mock data.
 
@@ -61,7 +59,7 @@ You will need two terminals: one to run your Foundation's hosting server, and on
 
 The web server will serve files from the `build_dev` folder. Initially, this folder will have a single file named `quick-tunnel.txt` containing the URL of the current [Cloudflare quick tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/do-more-with-tunnels/trycloudflare/) pointing to http://localhost:3005. The quick tunnel URL changes every time the server starts and looks like `https://[tunnel-sub-domain].trycloudflare.com`.
 
-The watch script will build a bundle of JavaScript files in dev mode and save them to the `build_dev/[module-name]` subfolder. The default module name is `StarterLibrary`. All source files under the `src` folder are watched for changes, and the target bundles are rebuilt as needed.
+The watch script will build a bundle of JavaScript files in dev mode and save them to the `build_dev/[module-name]` subfolder. All source files under the `src` folder are watched for changes, and the target bundles are rebuilt as needed.
 
 The watch script output will give you the URL to connect your test website with your dev environment:
 
@@ -71,11 +69,24 @@ PUBLIC URL: https://[tunnel-sub-domain].com/StarterLibrary
 
 > 🗒 Remember, when connecting a website with a module, the URL must include the module name in its path because there might be several modules hosted under the same domain.
 
-## 3. Deploy and Release with GitHub Actions
+## 3. Deploy with GitHub Actions
 
-This is the method to deploy your Foundation in production, but can also be used for testing. While it is the least practical testing method, it requires no local setup since it builds your modules using an included GitHub Workflow, and hosts them with GitHub Pages.
+This is the method is the least practical but requires no local setup since it builds your modules using a GitHub Workflow, and hosts them with GitHub Pages.
 
 ### Getting Started
+
+Initialize the Continuous Integration (CI) script for gitHub actions if not yet done.
+
+```bash
+npx uniweb github add workflow
+```
+
+This creates `.github/workflows/deploy-foundation.yml` that:
+
+1. Watches for changes to `package.json` version on main/master branch
+2. Builds the foundation automatically
+3. Publishes to GitHub Pages
+4. Makes it accessible at your GitHub Pages URL
 
 Build your Foundation with GitHub Actions, and make the build publicly available through GitHub Pages:
 
@@ -107,7 +118,7 @@ New builds are created automatically in response to commits that include Foundat
 There are [version and push scripts](docs/scripts.md) to increase the version number of a module and commit the changes. For example,
 
 ```sh
-yarn push:minor
+npm version minor
 ```
 
 will increase the second number of the version, commit the change, and push it. If you have multiple modules, this command will list them and let you select the target one.
@@ -119,6 +130,13 @@ When a website loads, it periodically checks if its component Foundation has com
 - Major updates (1.x.x) require manual review by site administrators
 
 This version management system, combined with Uniweb's runtime architecture, means your updates can be instantly available across all authorized websites using your Foundation - a powerful feature for maintaining and improving websites at scale.
+
+**Workflow:**
+
+1. Update version in `package.json`: `"version": "1.2.0"`
+2. Commit and push to main/master
+3. GitHub Actions builds and publishes automatically
+4. Foundation available at new version
 
 ### 👷 Enabling Dev Mode on a Website
 
