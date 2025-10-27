@@ -1,6 +1,6 @@
 # Uniweb Framework
 
-A web development framework built on separation of concerns. **Content** lives in sites—markdown files and assets. **Foundations** provide the React components that render that content.
+A web development framework built on separation of concerns. **Content** lives in sites—markdown, structured data, and assets. **Foundations** provide the React components that render that content.
 
 This architecture means content teams and developers work independently—content editors compose pages using intuitive components, developers build those components. Whether you're building a single site or deploying one Foundation across dozens of client sites, the same clean architecture applies.
 
@@ -68,7 +68,7 @@ Discover innovative solutions for your business.
 
 At runtime, the Framework connects your content with the appropriate component from your Foundation.
 
-**Static and dynamic content.** While content is markdown-first, you're not limited to static pages. Frontmatter can specify dynamic data sources—APIs, databases, CMS integrations. The framework handles data fetching and provides it to your components, so you can build everything from static marketing sites to dynamic dashboards with the same content-first architecture.
+**Content with structure and dynamics.** Markdown handles content naturally, but you can also use JSON blocks for structured data and data sources for dynamic content. The framework handles data fetching and provides everything to your components—from static marketing sites to data-driven product catalogs with the same content-first architecture.
 
 ## Workspace Organization
 
