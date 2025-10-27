@@ -2,6 +2,8 @@
 
 Uniweb operates at a higher level of abstraction than typical web frameworks. Rather than building websites directly, you build **Foundations**—collections of components designed to interface with content creators, not just developers.
 
+> **Visual learner?** See the [visual diagrams document](uniweb-diagrams.md) for architectural illustrations of these concepts.
+
 ## Why "Foundation" Instead of "Component Library"?
 
 The term "component library" suggests code meant to interact with other code—packages you `npm install` and import into your code. Think React, NextJS, Material-UI, shadcn/ui. These are tools developers use to build websites.
@@ -224,3 +226,13 @@ This dual-interface design is why "Foundation" is the right term. You're not jus
 - **Content world**: Markdown files, frontmatter, visual editors, declarative composition
 
 Most frameworks optimize for the developer side. Uniweb optimizes for the bridge between both sides. That's the fundamental difference, and why the abstraction level makes sense: you're not building for developers to use in code—you're building for content creators to compose with declaratively.
+
+---
+
+## Learn More
+
+- **[README](../README.md)** — Getting started, installation, and project setup
+- **[Visual Diagrams](uniweb-diagrams.md)** — Architectural illustrations of these concepts
+- **[Framework Website](https://framework.uniweb.app)** — Guides, blog, and comprehensive resources
+- **[Documentation](https://docs.framework.uniweb.app)** — Complete API reference and tutorials
+- **[Examples](https://github.com/uniwebcms/examples)** — Sample Foundations and components

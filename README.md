@@ -254,6 +254,7 @@ The Framework works standalone or integrates with the full ecosystem as your nee
 
 ## Learn More
 
+- 🧭 **[Understanding Uniweb](docs/understanding-uniweb.md)** — Core concepts and architectural insights
 - 🏠 **[Framework Website](https://framework.uniweb.app)** — Guides, blog, and comprehensive resources
 - 📘 **[Documentation](https://docs.framework.uniweb.app)** — Complete API reference and tutorials
 - 🚀 **[Uniweb App](https://uniweb.app)** — Visual content editor and hosting platform
