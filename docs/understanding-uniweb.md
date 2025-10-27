@@ -265,8 +265,8 @@ Most frameworks optimize for the developer side. Uniweb optimizes for the bridge
 
 ## Learn More
 
-- **[README](../README.md)** — Getting started, installation, and project setup
-- **[Visual Diagrams](uniweb-diagrams.md)** — Architectural illustrations of these concepts
+- **[General Primer](general-primer.md)** — Getting started for developers and content teams
+- **[Foundations Guide](foundations-guide.md)** — What you need to know before building a foundation
 - **[Framework Website](https://framework.uniweb.app)** — Guides, blog, and comprehensive resources
 - **[Documentation](https://docs.framework.uniweb.app)** — Complete API reference and tutorials
 - **[Examples](https://github.com/uniwebcms/examples)** — Sample Foundations and components
