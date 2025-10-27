@@ -2,7 +2,7 @@
 
 A web development framework built on separation of concerns. **Content** lives in sites—markdown files and assets. **Foundations** provide the React components that render that content.
 
-This architecture means content teams and developers work independently—content editors compose pages using intuitive components, developers build those components.
+This architecture means content teams and developers work independently—content editors compose pages using intuitive components, developers build those components. Whether you're building a single site or deploying one Foundation across dozens of client sites, the same clean architecture applies.
 
 ## Quick Start
 
@@ -108,7 +108,7 @@ Includes a Foundation with example components and a demo site with sample conten
 npx @uniwebcms/framework@latest create my-project --site demo --module marketing
 ```
 
-Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing.
+Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing. Perfect for your own site with complete control over components—start with what you need, expand if your requirements grow.
 
 **Content-Only Project** (uses a remote Foundation):
 
@@ -160,7 +160,7 @@ uniweb create my-project
 
 ## Why Uniweb Framework?
 
-**Build plug-and-play Foundations.** Create a Foundation and deploy it across multiple sites. When you update components, all connected sites benefit automatically based on their version strategy—improvements propagate without redeployment.
+**Clean separation of content and code.** Build components in a Foundation, write content in markdown. Start with a single site using your own Foundation—standard React development with better content organization. Need to serve multiple sites later? Your Foundation is already architected for it. Updates propagate automatically based on version strategy—improvements flow without redeployment.
 
 **Components that scale to your needs.** Build hardcoded components for a single site or create parameterized components that content creators configure. Start with minimal schemas (just component names) and add parameters, presets, and validation as your needs grow. The framework supports the entire continuum—from site-specific React components to comprehensive design systems for content creators.
 
@@ -177,15 +177,15 @@ uniweb create my-project
 
 Start with minimal schemas during development. Add parameters and options as your components mature and your use case expands—for flexibility across related sites, for content creator empowerment, or for deep visual editor integration. The schema defines what content teams can achieve with each component, scaled to your project's requirements.
 
-### The Power of Specialization
+### Scaling Beyond a Single Site
 
-Build one Foundation for a vertical (documentation, marketing, corporate, medical, legal, real estate) and deploy to dozens of client sites. Updates propagate automatically, controlled by per-site versioning policies.
+The same Foundation that powers your site can serve others. Build once for a vertical (documentation, marketing, corporate, medical, legal, real estate), then optionally deploy to multiple client sites. Updates propagate automatically, controlled by per-site versioning policies.
 
 **Developers maintain Foundations.** Build and refine components without managing individual client content.
 
 **Content teams manage content.** Work with Git and Markdown, or use the [Uniweb App](https://uniweb.app) for a professional visual editing experience. Components are built by developers; content teams compose with them as if they were native app features—no code required.
 
-This separation eliminates bottlenecks and lets each team focus on their expertise.
+This separation eliminates bottlenecks and lets each team focus on their expertise—whether you're working solo on one site or coordinating across multiple teams and projects.
 
 ## Deployment
 
