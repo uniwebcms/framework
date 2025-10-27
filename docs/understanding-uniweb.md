@@ -158,6 +158,31 @@ This schema-driven approach serves multiple audiences:
 
 The Foundation's interface isn't `import { HeroSection } from '@my/foundation'`—it's the set of component names and options that appear in markdown frontmatter. This is a content interface, not a code interface.
 
+### Structured Content Beyond Markdown
+
+Regular markdown is more powerful than it appears. The Framework parses markdown into structured data that components receive: headings define sections and subsections, content gets organized hierarchically, and standard elements (lists, links, images, videos) are all accessible as structured data. This means content creators can write naturally—as sections with text, images, and lists—while components receive well-structured content to work with.
+
+For many components, this is sufficient. A feature section with headings, paragraphs, and images? Natural markdown. A blog post with subsections and embedded media? Natural markdown.
+
+However, some content models don't map naturally to markdown's patterns. A team member with name, role, bio, and avatar? A product with SKU, price, variants, and specifications? These need explicit structure.
+
+For these cases, Uniweb supports JSON code blocks with schema hashbangs:
+
+````markdown
+```json #team-member
+{
+  "name": "Sarah Chen",
+  "role": "Lead Architect",
+  "bio": "10+ years building distributed systems",
+  "avatar": "/assets/sarah.jpg"
+}
+```
+````
+
+The `#team-member` hashbang references a content schema that validates structure, enables visual editor form UIs, and ensures type safety—all while keeping the content-facing interface declarative.
+
+**The design philosophy**: Use markdown's natural structure for most content. Reach for JSON blocks only when the content model requires it.
+
 ## Progressive Complexity
 
 The framework supports the entire spectrum of use cases:
