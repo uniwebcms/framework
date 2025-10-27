@@ -47,13 +47,18 @@ background: dark
 
 The consumer is a content creator. They write markdown, configure through frontmatter, and compose pages. No code. No imports. No deployment pipelines.
 
-**This is the fundamental shift.** Foundations are designed for the second pattern—where components are referenced declaratively by people who don't write code.
+**This is the fundamental shift.** Foundations are designed for the second pattern—where components are referenced declaratively by people who don't write code. Even if you're working solo on a single site, this pattern brings clean separation: your content lives in markdown, your components in React. The architecture scales when your needs do.
 
 ## The Core Concept
 
-Most web frameworks help you build _a website_. Uniweb helps you build _a system for content creators to build websites_.
+Most web frameworks help you build _a website_. Uniweb helps you build _a system for building websites_—whether that's just you working on your own site with clean content/code separation, or a Foundation serving multiple content teams across different projects.
 
-When you create a Foundation, you're building a specialized framework for a particular domain—documentation sites, marketing sites, corporate sites, real estate listings, medical portals. That Foundation becomes the vocabulary and toolset that content teams use to create pages.
+When you create a Foundation, you're building components with a content-facing interface. For your own site, this means cleaner architecture—content in markdown, components in React. If you later need to serve multiple sites or empower content teams, the architecture is already in place.
+
+**Think of it this way:**
+
+- **Traditional approach**: Build a website → Deploy it → Developers maintain code and content together
+- **Uniweb approach**: Build a Foundation → Compose sites with it → Architecture scales from one site to many
 
 ## Inside vs Outside the Boundary
 
@@ -89,7 +94,7 @@ export default function HeroSection({ block }) {
 }
 ```
 
-Content creators only interact with `HeroSection` (because it's in a schema). The `CallToAction` component is invisible to them—it's internal implementation.
+Content creators only interact with `HeroSection` (because it's in a schema). The `CallToAction` component is invisible to them—it's internal implementation. Even if you're working solo on your own site, this boundary keeps concerns separated: your markdown content references `HeroSection`, your code composes `HeroSection` from internal components.
 
 **This is why "Foundation" fits better than "component library."** You're not exposing every component to content creators. You're building a foundation with a carefully designed surface area—the exposed components—while the internal structure is entirely up to you and standard React practices.
 
@@ -157,11 +162,11 @@ The Foundation's interface isn't `import { HeroSection } from '@my/foundation'`�
 
 The framework supports the entire spectrum of use cases:
 
-**Simple end**: Build hardcoded React components for a single site. Use minimal schemas (just component names). Work like any React framework.
+**Simple end**: Build hardcoded React components for a single site. Use minimal schemas (just component names). Work like any React framework. This is a legitimate, production-ready approach—many sites stay here permanently.
 
 **Complex end**: Create comprehensive design systems with rich schemas, parameterized components, theming, presets, and deep visual editor integration. Serve multiple sites with content creators who never touch code.
 
-Start anywhere on this spectrum and grow as needs evolve. The architecture doesn't dictate your complexity—it accommodates it.
+Start anywhere on this spectrum and grow as needs evolve. The architecture doesn't dictate your complexity—it accommodates it. You're not compromising by starting simple; you're making a pragmatic choice that preserves future options.
 
 **The Framework is unopinionated about implementation.** How you build your exposed components internally—what npm packages you use, how you structure internal components, what styling approach you take—is entirely standard React development. The Framework only defines the boundary layer where components meet content. Inside that boundary, it's your choice.
 
@@ -173,44 +178,48 @@ A Foundation is the canonical implementation. When you update a component:
 2. All connected sites can receive the update (based on their version strategy)
 3. No per-site redeployment is required (runtime loading)
 
-This architectural decision eliminates the traditional problem of component libraries that require explicit upgrades and redeployment across consuming projects. The update propagation is automatic and controlled.
+Even with a single site, your components live in one place. Update your Foundation during development, refresh the page, see the changes. For multiple sites, this architectural decision eliminates the traditional problem of component libraries that require explicit upgrades and redeployment across consuming projects. The update propagation is automatic and controlled.
 
 ## Why This Abstraction Level?
 
-Traditional web frameworks optimize for building individual websites. Uniweb optimizes for building **classes of websites**.
+Traditional web frameworks optimize for building individual websites. Uniweb optimizes for **clean content/code separation** with an optional scaling path.
 
-The framework shines when:
+For a single site, the architecture provides immediate benefits: content lives in markdown (easy to edit, version-controlled), components are standard React (familiar patterns), and the separation prevents code and content from tangling. It's no more complex than other React frameworks, just better organized.
 
-- You're building multiple related sites (different clients, brands, or products)
-- You have separate teams for development and content
-- You want component improvements to propagate automatically
-- You need version control over breaking changes
-- You're building a vertical specialization (a framework for X type of sites)
+The abstraction level also enables scenarios that traditional frameworks make difficult:
+
+- Building multiple related sites (different clients, brands, or products)
+- Separate teams for development and content
+- Component improvements that propagate automatically across sites
+- Version control over breaking changes
+- Vertical specialization (a framework for documentation, marketing, real estate, etc.)
+
+These capabilities are available when needed, not required upfront. Start with one site and standard React development. The architecture accommodates growth without requiring rewrites.
 
 ## The Broader Ecosystem
 
 While the Framework is open source and works standalone, it integrates with a commercial ecosystem:
 
 - **Uniweb App**: Professional visual editor and managed hosting
-- **Foundation Registry**: Publish and share Foundations
+- **Foundation Registry**: Publish and share Foundations (coming soon)
 - **Community**: Shared interfaces, specifications, and best practices
 
 You can use the Framework entirely on your own infrastructure, or leverage the ecosystem as needs grow. The architecture avoids lock-in while providing a path to managed services.
 
 ## In Practice: Two Worlds, One System
 
-**Developers** build Foundations—creating components with content-facing interfaces. You're not just writing React components; you're designing the vocabulary and building blocks that content creators will use.
+**Developers** build Foundations—creating components with content-facing interfaces. Whether you're working solo on your own site or building for content teams, you're designing how components will be referenced and configured in markdown.
 
-**Content creators** are the primary consumers of your Foundation. They compose sites by referencing your components through markdown frontmatter or visual editors. To them, your `HeroSection` component is as native as a heading or paragraph—just a building block they can use and configure.
+**Content creators** are the consumers when they exist. They compose sites by referencing your components through markdown frontmatter or visual editors. To them, your `HeroSection` component is as native as a heading or paragraph—just a building block they can use and configure. (If you're working solo, you're both the developer and the content creator—but the separation still provides clean architecture.)
 
 **Sites** control their update strategy—choosing between automatic updates, conservative policies (minor/patch only), or pinned versions.
 
 This is fundamentally different from traditional component libraries:
 
 - **Component library**: Developers consume the API in code
-- **Foundation**: Content creators consume the interface through declarative markup
+- **Foundation**: Content creators (or you, wearing that hat) consume the interface through declarative markup
 
-The separation eliminates bottlenecks: Developers aren't blocked by content changes. Content teams aren't waiting for developer availability to launch pages. Each role works in their domain—code for developers, content for creators—connected through the Foundation's interface.
+The separation eliminates bottlenecks: Developers aren't blocked by content changes. Content teams aren't waiting for developer availability to launch pages. Each role works in their domain—code for developers, content for creators—connected through the Foundation's interface. Even working solo, this separation keeps your codebase cleaner.
 
 ## The Key Insight
 
