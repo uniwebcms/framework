@@ -1,8 +1,6 @@
 # Uniweb Framework
 
-A web development framework built on separation of concerns. **Content** lives in sites—page hierarchy, markdown files, and assets. **Foundations** provide the React components that render that content.
-
-Content can be markdown, structured data, or dynamic data from APIs and databases. Build marketing sites, product catalogs, or anything in between—same architecture, different data sources.
+A web development framework built on separation of concerns. **Content** lives in sites—page hierarchy, markdown files, and assets. **Foundations** provide the React components that render that content. Content can be plain, structured, or dynamic (from APIs and databases).
 
 This architecture means content teams and developers work independently—content editors compose pages using intuitive components, developers build those components. Whether you're building a single site or deploying one Foundation across dozens of client sites, the same clean architecture applies.
 
@@ -112,7 +110,7 @@ Includes a Foundation with example components and a demo site with sample conten
 npx @uniwebcms/framework@latest create my-project --site demo --module marketing
 ```
 
-Creates a local Foundation at `src/marketing` for building custom components, plus a demo site for testing. Perfect for your own site with complete control over components—start with what you need, expand if your requirements grow.
+Creates a Foundation module at `src/marketing` for building custom components, plus a demo site for testing. Perfect for your own site with complete control over components—start with what you need, expand if your requirements grow.
 
 **Content-Only Project** (uses a remote Foundation):
 
