@@ -1,13 +1,14 @@
 # Uniweb for Content Creators: A Practical Guide
 
-> **This is part 2 of 3 in the Uniweb documentation set.**  
-> • [Part 1: Uniweb: A New Approach to Web Creation](general-primer.md)  
-> • Part 2: Uniweb for Content Creators: A Practical Guide (this document)  
-> • [Part 3: Uniweb for Developers: Building Foundations](developers-guide.md)
+This guide helps content creators build sophisticated websites without writing code. You'll learn how to create, organize, and configure content effectively within the Uniweb framework.
+
+**Related documentation:**
+
+- [Understanding Uniweb](understanding-uniweb.md) - Conceptual overview of Uniweb's architecture
+- [Uniweb for Developers](developers-guide.md) - Technical guide for building Foundations
+- [Terminology Reference](terminology.md) - Key terms and definitions
 
 ## Introduction
-
-As a content creator using Uniweb, you can build sophisticated websites without writing code. This guide will help you understand how to create, organize, and configure content effectively within the Uniweb framework.
 
 Uniweb's approach is unique because it completely separates content from code. This means:
 
@@ -16,7 +17,7 @@ Uniweb's approach is unique because it completely separates content from code. T
 - You can reuse the same content structure across different designs
 - Your work won't be blocked by technical changes happening behind the scenes
 
-> **Note:** For a conceptual overview of Uniweb's approach to content-code separation, see [Uniweb: A New Approach to Web Creation](#).
+As a content creator, you'll work with markdown files, configure components through simple YAML settings, and organize pages—all without touching code.
 
 ## Getting Started
 
@@ -28,7 +29,7 @@ project-root/
 │   ├── index/             # Home page
 │   │   ├── hero.md        # Individual content sections
 │   │   ├── features.md
-│   │   └── structure.yml  # Defines section order
+│   │   └── page.yml       # Page metadata and section order
 │   └── about/             # About page
 │       └── ...
 └── public/                # Where your images and files live
@@ -39,7 +40,7 @@ project-root/
 As a content creator, you'll primarily work with:
 
 - **Markdown files (.md)** - Individual sections of content
-- **Structure files (structure.yml)** - Control the order of sections
+- **Page files (page.yml)** - Control page metadata and section order
 - **Images and assets** - Stored in the public folder
 
 ### Basic Content Creation
@@ -63,9 +64,9 @@ Discover how our innovative solutions can transform your business.
 [Learn More](#about){button-secondary}
 ```
 
-Don't let the technical-looking parts at the top intimidate you! Let's break this down:
+Let's break this down:
 
-1. **Front matter** (between `---` lines) - This simply tells Uniweb which component to use and how to configure it. Think of it as selecting a template and choosing some options.
+1. **Front matter** (between `---` lines) - This tells Uniweb which component to use and how to configure it. Think of it as selecting a template and choosing some options.
 
 2. **Content** - Everything after the front matter is just regular content:
    - `#` creates headings
@@ -74,7 +75,7 @@ Don't let the technical-looking parts at the top intimidate you! Let's break thi
    - `[Text](link)` creates links
    - Adding `{button-primary}` to a link turns it into a styled button
 
-You don't need to understand how components work internally - you just need to know which ones are available and what options they accept.
+You don't need to understand how components work internally—you just need to know which ones are available and what options they accept.
 
 ## Organizing Your Content
 
@@ -140,15 +141,17 @@ If you add a new section file, remember to add it to the `sections` list in `pag
 
 ## Working with Components
 
-Components are the building blocks that determine how your content is presented. Think of them as templates or layouts that give your content structure and style. In Uniweb, these components come from purpose-built component libraries (PBCLs) that have been designed specifically for your content needs.
+Components are the building blocks that determine how your content is presented. Think of them as templates or layouts that give your content structure and style. In Uniweb, these components come from **Foundations**—purpose-built design systems created by developers specifically for your content needs.
+
+> **What's a Foundation?** A Foundation is a collection of React components designed to work together as a cohesive design system. Your site uses one Foundation that provides all the components you can reference in your content. See [Understanding Uniweb](understanding-uniweb.md) for more details.
 
 ### Discovering Available Components
 
 To see which components are available in your project:
 
 ```bash
-# List all components in the current module
-uniweb list components
+# List all components in the current Foundation
+npx uniweb component list
 ```
 
 This command shows:
@@ -184,12 +187,12 @@ Don't worry about memorizing all possible options. You can always check:
 
 ```bash
 # Get detailed information about a specific component
-uniweb get component --name TeamGrid
+npx uniweb component info TeamGrid
 ```
 
 ### Using Component Presets
 
-Many components offer presets - pre-configured sets of options:
+Many components offer presets—pre-configured sets of options:
 
 ```yaml
 ---
@@ -201,7 +204,7 @@ preset: compact # Uses a predefined configuration
 To see available presets for a component:
 
 ```bash
-uniweb list presets --component FeatureShowcase
+npx uniweb component presets FeatureShowcase
 ```
 
 Presets are a great way to use professionally designed configurations without having to specify all the individual settings.
@@ -318,7 +321,7 @@ The key benefit: You only need to translate the content itself, not the configur
 
 ### Creating Translations
 
-When creating a translation file, you only need to include the content - not the front matter:
+When creating a translation file, you only need to include the content—not the front matter:
 
 **Original (pages/about/team.md):**
 
@@ -362,7 +365,7 @@ The Uniweb CLI makes managing translations easy:
 
 ```bash
 # Create a French translation for the team section
-uniweb set section --page about --name team --locale fr --body "# Notre Équipe\n\nNos professionnels..."
+npx uniweb page section set about/team --locale fr --content "# Notre Équipe\n\nNos professionnels..."
 ```
 
 This automatically creates the translation file in the correct location and format.
@@ -371,62 +374,52 @@ This automatically creates the translation file in the correct location and form
 
 The Uniweb Command Line Interface (CLI) is a powerful tool that simplifies content management. While you can edit files directly, the CLI helps ensure everything is in the right place and format.
 
-### Getting Started with the CLI
-
-First, install the CLI globally:
-
-```bash
-npm install -g @uniwebcms/toolkit
-```
-
-This makes the `uniweb` command available from any directory on your computer.
-
 ### Common Content Tasks
 
-#### Adding Content
+#### Creating Content
 
 ```bash
 # Add a new page
-uniweb add page --name products
+npx uniweb page add products
 
 # Add a new section to a page
-uniweb add section --page about --name mission
+npx uniweb page section add about/mission
 
-# Add section content
-uniweb set section --page about --name mission --body "# Our Mission\n\nWe aim to..."
+# Set section content
+npx uniweb page section set about/mission --content "# Our Mission\n\nWe aim to..."
 ```
 
 #### Managing Content
 
 ```bash
 # Update existing section content
-uniweb set section --page about --name team --body "# Updated Team Content"
+npx uniweb page section set about/team --content "# Updated Team Content"
 
-# Get current content of a section
-uniweb get section --page about --name team
+# View current content of a section
+npx uniweb page section get about/team
 
 # Copy a section to another page
-uniweb copy section --from-page about --from-name team --to-page contact --to-name leadership
+npx uniweb page section copy about/team contact/leadership
 ```
 
 #### Working with Translations
 
 ```bash
 # Add a French translation
-uniweb set section --page about --name team --locale fr --body "# Notre Équipe"
+npx uniweb page section set about/team --locale fr --content "# Notre Équipe"
 
 # List available translations
-uniweb list locales
+npx uniweb locale list
 ```
 
 ### Getting Help
 
 ```bash
 # See all available commands
-uniweb help
+npx uniweb help
 
 # Get help for a specific command
-uniweb help add section
+npx uniweb help page section add
 ```
 
 ## Practical Examples
@@ -437,30 +430,39 @@ Let's look at some common scenarios:
 
 ```bash
 # Create the page
-uniweb add page --name services
+npx uniweb page add services
 
 # Add sections
-uniweb add section --page services --name overview
-uniweb add section --page services --name offerings
-uniweb add section --page services --name pricing
+npx uniweb page section add services/overview
+npx uniweb page section add services/offerings
+npx uniweb page section add services/pricing
 
 # Add content to sections
-uniweb set section --page services --name overview --body "# Our Services\n\nWe provide..."
-uniweb set section --page services --name offerings --body "# What We Offer\n\n## Service One\n\nDetails..."
-uniweb set section --page services --name pricing --body "# Pricing Options\n\n## Basic\n\n$99/month..."
+npx uniweb page section set services/overview --content "# Our Services\n\nWe provide..."
+npx uniweb page section set services/offerings --content "# What We Offer\n\n## Service One\n\nDetails..."
+npx uniweb page section set services/pricing --content "# Pricing Options\n\n## Basic\n\n$99/month..."
+```
 
-# Define page metadata and section order
-uniweb set page --name services --config "title: Our Services\ndescription: Services we offer\nsections:\n  - overview\n  - offerings\n  - pricing"
+Then edit `pages/services/page.yml` to define the page metadata and section order:
+
+```yaml
+title: Our Services
+description: Services we offer
+
+sections:
+  - overview
+  - offerings
+  - pricing
 ```
 
 ### Updating an Existing Section
 
 ```bash
-# Get current content
-uniweb get section --page about --name team
+# View current content
+npx uniweb page section get about/team
 
 # Update the content
-uniweb set section --page about --name team --body "# Our Team\n\nMeet our expanded team of experts..."
+npx uniweb page section set about/team --content "# Our Team\n\nMeet our expanded team of experts..."
 ```
 
 ## Best Practices
@@ -469,7 +471,7 @@ uniweb set section --page about --name team --body "# Our Team\n\nMeet our expan
 2. **Be consistent across sections** - Use similar patterns for similar content
 3. **Think in terms of content, not presentation** - Focus on what you're saying, not exactly how it will look
 4. **Use the appropriate component** - Different components are designed for different content types
-5. **Preview changes frequently** - Use the preview functionality to see how your content renders
+5. **Preview changes frequently** - Use the development server to see how your content renders
 6. **Leverage presets** - Use component presets for professionally designed layouts
 7. **Use the CLI for complex operations** - The CLI helps maintain consistency, especially for translations
 
@@ -479,24 +481,36 @@ If you're ever unsure about how a component works or what options are available:
 
 ```bash
 # Get information about a component
-uniweb get component --name HeroSection
+npx uniweb component info HeroSection
 
 # List all available components
-uniweb list components
+npx uniweb component list
 
 # List presets for a component
-uniweb list presets --component FeatureShowcase
+npx uniweb component presets FeatureShowcase
 ```
 
 These commands provide the information you need without having to search through documentation.
 
 ## Next Steps
 
-Now that you understand the basics of content creation in Uniweb, you're ready to start building! Remember that the purpose-built Foundation used by your site determines which components are available to you and how they function.
+Now that you understand the basics of content creation in Uniweb, you're ready to start building!
 
-If you're interested in learning more about how these PBCLs are created:
+**Continue learning:**
 
-- [Uniweb for Developers: Building Foundations](#) - The technical guide for developers who create component libraries
+- [Understanding Uniweb](understanding-uniweb.md) - Deeper dive into the architecture
+- [Terminology Reference](terminology.md) - Key terms and definitions
+- [Deployment Guide](deployment-guide.md) - Publishing your site
+
+**For developers:**
+
+- [Uniweb for Developers](developers-guide.md) - Learn how Foundations are created
+
+**Get support:**
+
+- [Framework Website](https://framework.uniweb.app) - Guides and resources
+- [Documentation](https://docs.framework.uniweb.app) - Complete API reference
+- [Examples](https://github.com/uniwebcms/examples) - Sample content patterns
 
 ---
 
