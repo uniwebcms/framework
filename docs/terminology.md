@@ -1,6 +1,6 @@
 # Uniweb Terminology Reference
 
-This reference clarifies how Uniweb uses key terms, many of which have different meanings in other frameworks or contexts.
+This reference clarifies how Uniweb Framework uses key terms, many of which have different meanings in other frameworks or contexts.
 
 ## Core Architecture Terms
 
@@ -38,7 +38,7 @@ This reference clarifies how Uniweb uses key terms, many of which have different
 
 ### Project
 
-**In Uniweb:** The entire Uniweb codebase including all sites and Foundations, managed as npm/yarn/pnpm workspaces. A project can contain multiple independent workspaces (sites and Foundations), or just one.
+**In Uniweb:** A repository with one or many sites and/or Foundations, each managed as an npm/yarn/pnpm workspace.
 
 **Different from:** Single-app projects in traditional frameworks. Uniweb projects are designed to manage multiple related but independent workspaces.
 
@@ -50,17 +50,17 @@ This reference clarifies how Uniweb uses key terms, many of which have different
 
 ### Registry
 
-**In Uniweb:** A catalog of available Foundations, each representing a complete design system that sites can connect to. The registry enables Foundation discovery, versioning, and distribution.
+**In Uniweb:** A catalog of licensed Foundations, each representing a complete design system that sites can connect to. The registry enables Foundation distribution and versioning.
 
-**Different from:** Component marketplaces where individual components are mixed and matched. Uniweb registries list complete Foundations that are designed to work as cohesive systems.
+**Different from:** Component marketplaces where individual components are mixed and matched. Uniweb registries list proprietary Foundations that are designed to work as cohesive systems.
 
-**Status:** Foundation Registry coming soon. Currently, Foundations are distributed via direct URLs or local development.
+**Optional:** Foundations can also be distributed via direct URLs or local development.
 
 ## Content Structure Terms
 
 ### Page
 
-**In Uniweb:** A content entity that maps to a URL path, containing multiple sections and defined by a `page.yml` file. Pages organize sections and define metadata like title, description, and section hierarchy.
+**In Uniweb:** A folder whose path that maps to a URL path and contains markdown files representing sections, and a `page.yml` file defining page properties. Pages organize sections and define metadata like title, description, and section hierarchy.
 
 **Different from:** Template files in traditional systems where the page structure is code. In Uniweb, pages are pure content organization.
 
@@ -74,7 +74,7 @@ This reference clarifies how Uniweb uses key terms, many of which have different
 
 **In Uniweb:** A content unit represented by a markdown file, rendered by a component specified in the frontmatter. Sections are the atomic units of content that content creators work with.
 
-**Different from:** Page regions or blocks in traditional CMSs that are often tied to specific layouts. Uniweb sections are component-agnostic—the same section can be rendered by different components.
+**Different from:** Page regions or blocks in traditional CMSs that are often tied to specific layouts.
 
 **Example:**
 
@@ -91,16 +91,19 @@ Your content here.
 
 ### Block
 
-**In Uniweb:** The runtime JavaScript representation of a section. When a section is loaded, the framework creates a block object that provides context, methods, and utilities to components.
+**In Uniweb:** The runtime JavaScript representation of a section. When a section is loaded, the framework creates a block object that provides content, params, context, and methods to components.
 
 **Different from:** UI blocks or widgets in other frameworks. Uniweb blocks are runtime instances with lifecycle, state management, and parent-child relationships.
 
 **Key properties:**
 
 - `block.id` - Unique identifier
-- `block.type` - Component type name
+- `block.content` - Content to render (same as the explicit `content` prop)
+- `block.params` - Parameters defining rendering (same as the explicit `params` prop)
+- `block.input` - Dynamically fetched data
+- `block.page` - The page object that contains the block
+- `block.site` - The website object that contains the page that contains the block
 - `block.getChildBlocks()` - Access child blocks
-- `block.render()` - Render the block
 
 ## Component Terms
 
@@ -172,10 +175,11 @@ function MyComponent({ content, params, block }) {
 - Documentation generation
 - Type safety for structured content
 
-**Two types:**
+**Three types:**
 
 1. **Component schemas** - Define exposed component interfaces
 2. **Content schemas** - Define structured data in JSON blocks
+3. **Foundation schema** - Defines Foundation-level configuration
 
 ## Runtime Terms
 
@@ -217,7 +221,7 @@ foundation:
 
 ### Uniweb Framework
 
-**What it is:** The open-source (GPL-3.0) framework for building and running sites with Foundations. Works standalone with your own infrastructure.
+**What it is:** The open-source (GPL-3.0) framework for building Foundations and sites. It includes a Runtime Engine (RTE) to render sites with their chosen Foundations.
 
 **What it provides:**
 
@@ -256,7 +260,7 @@ foundation:
 
 ### "Sites must use Uniweb App"
 
-**False.** The Framework works standalone. Uniweb App is optional managed hosting and visual editing.
+**False.** The Framework works standalone. Uniweb App is optional visual editing, dynamic content database, and managed hosting.
 
 ### "Foundations are just component libraries"
 
@@ -264,7 +268,7 @@ foundation:
 
 ### "You need to write custom components for every site"
 
-**False.** You can use pre-built Foundations from the registry (coming soon) or community. Custom Foundations are for specialized needs.
+**False.** You can use pre-built Foundations based on their license. Custom Foundations are for specialized needs.
 
 ### "Content and code are bundled together"
 

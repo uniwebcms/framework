@@ -60,7 +60,7 @@ Content is written in markdown with YAML frontmatter that specifies which compon
 ---
 component: HeroSection
 layout: centered
-background: hero-background.png
+background: dark
 ---
 
 # Welcome to Our Platform

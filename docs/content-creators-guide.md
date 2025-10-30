@@ -511,7 +511,3 @@ Now that you understand the basics of content creation in Uniweb, you're ready t
 - [Framework Website](https://framework.uniweb.app) - Guides and resources
 - [Documentation](https://docs.framework.uniweb.app) - Complete API reference
 - [Examples](https://github.com/uniwebcms/examples) - Sample content patterns
-
----
-
-Happy content creating with Uniweb!
