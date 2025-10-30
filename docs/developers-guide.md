@@ -19,7 +19,7 @@ When building Foundations for websites, you're creating more than just React com
 
 This dual interface is what makes Foundations different from traditional component libraries. See [Understanding Uniweb](understanding-uniweb.md) for the conceptual foundation behind this architecture.
 
-### Two Types of Components in Uniweb Framework
+### Two Types of Components in a Foundation
 
 The Framework supports two distinct types of components:
 
@@ -174,9 +174,9 @@ export const presets = [
 ];
 ```
 
-### Required Components
+### Standard Components
 
-Every Foundation must provide a `Section` component. This is the default component used when markdown files have no frontmatter or no `component` property specified.
+Most Foundations provide a `Section` component. This is the default component used when markdown files have no frontmatter or no `component` property specified.
 
 **Using the built-in Section component:**
 
