@@ -174,6 +174,95 @@ export const presets = [
 ];
 ```
 
+### Required Components
+
+Every Foundation must provide a `Section` component. This is the default component used when markdown files have no frontmatter or no `component` property specified.
+
+**Using the built-in Section component:**
+
+The easiest approach is to use the pre-built `Section` component from `@uniwebcms/basic`:
+
+```jsx
+// components/Section/index.js
+export { Section as default } from "@uniwebcms/basic";
+```
+
+The `@uniwebcms/basic` package provides professionally-implemented common components including `Section`, `Image`, `Link`, `Text`, `Form`, and more. These components handle edge cases, accessibility, and performance optimally.
+
+**Creating a custom Section component:**
+
+If you need custom behavior, you can create your own:
+
+```jsx
+// components/Section/index.js
+function Section({ content, params, block }) {
+  return (
+    <article className="section">
+      {content.main.title && <h1>{content.main.title}</h1>}
+      {content.main.paragraphs.map((p, i) => (
+        <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
+      ))}
+      {content.main.images.map((img, i) => (
+        <img key={i} src={img.src} alt={img.alt || ""} />
+      ))}
+    </article>
+  );
+}
+
+export default Section;
+```
+
+This convention enables content creators to write pure markdown without configuration decisions. The `Section` component should be versatile enough to handle typical article and documentation content gracefully.
+
+### Reserved Parameter Names
+
+The Framework reserves certain parameter names for standard functionality. **Do not use these names** in your `component.config.js` parameter definitions:
+
+- **`component`** - Specifies which component to render
+- **`preset`** - Applies predefined parameter configurations from your component schema
+- **`input`** - Defines data sources for dynamic content (APIs, databases)
+- **`background`** - Controls background styling and color context/theming for proper contrast
+
+Using these names in your component's `parameters` array will cause conflicts. Your components can still read values from these parameters through the `params` object—you just cannot define them in your schema.
+
+> See the [Parameters Reference](https://docs.framework.uniweb.app/parameters) for complete details on reserved parameters and the Framework's parameter system.
+
+### The @uniwebcms/basic Utility Library
+
+The Framework provides `@uniwebcms/basic`, a collection of professionally-implemented common components and utilities that handle edge cases, accessibility, and performance optimally. Using these components saves development time and ensures consistency across Foundations.
+
+**Common components available:**
+
+- **`Section`** - Default component for markdown content
+- **`Image`** - Optimized image component with lazy loading, responsive images, and accessibility
+- **`Link`** - Smart link component that handles internal/external links and routing
+- **`Text`** - Renders HTML content safely with proper sanitization
+- **`Form`** - Form handling with validation and submission
+- **`Icon`** - Icon component with multiple icon set support
+- And many more...
+
+**Usage:**
+
+```jsx
+import { Section, Image, Link, Text } from "@uniwebcms/basic";
+
+// Use as-is for exposed components
+export { Section as default } from "@uniwebcms/basic";
+
+// Or use within your custom components
+function CustomComponent({ content, params, block }) {
+  return (
+    <div>
+      <Image src={content.main.images[0]} alt="Hero" />
+      <Text>{content.main.paragraphs[0]}</Text>
+      <Link href="/learn-more">Learn More</Link>
+    </div>
+  );
+}
+```
+
+While you're free to implement your own versions of any component, `@uniwebcms/basic` provides battle-tested implementations that handle common requirements out of the box.
+
 ## Building Components
 
 ### Component Interface
@@ -216,7 +305,9 @@ HeroSection.blockDefaults = {
 export default HeroSection;
 ```
 
-> **Important**: `ComponentName.blockDefaults` is runtime initialization for persistent block instances. It is different from `component.config.js`, which is build-time schema metadata used by content creators and visual editors.
+> **Important**: `ComponentName.blockDefaults` is runtime initialization for persistent block state that survives re-renders and can be shared between component instances. Use it for values that need to persist across the component lifecycle or be accessed by parent/child blocks. This is different from `component.config.js`, which is build-time schema metadata used by content creators and visual editors to configure components.
+
+> **Tip**: Instead of using `dangerouslySetInnerHTML` for paragraph content, use the `Text` component from `@uniwebcms/basic` which handles HTML safely: `<Text>{paragraph}</Text>`
 
 ### Understanding the Content Object
 
@@ -280,65 +371,85 @@ In your component, extract and use these parameters:
 
 ```jsx
 function HeroSection({ content, params, block }) {
-  // Extract with defaults
+  // Destructure with defaults for optional parameters
   const { layout = "standard", theme = "light", showButton = false } = params;
 
   return (
     <div className={`hero layout-${layout} theme-${theme}`}>
       <h1>{content.main.title}</h1>
-      {showButton && <button>Get Started</button>}
+      {content.main.paragraphs.map((p, i) => (
+        <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
+      ))}
+      {showButton && content.main.links.length > 0 && (
+        <a href={content.main.links[0].url} className="button">
+          {content.main.links[0].text}
+        </a>
+      )}
     </div>
   );
 }
 ```
 
-**Best practices for parameters:**
+Always provide sensible defaults for parameters so the component works without explicit configuration.
 
-- Always provide sensible defaults
-- Use semantic names (`theme: "dark"` not `backgroundColor: "#333"`)
-- Define parameters in `component.config.js` for validation and documentation
+### Working with Dynamic Data
 
-### Understanding the Block Object
+Components can receive data fetched from APIs or databases. Content creators specify data sources using the `input` parameter, and the RTE fetches the data before rendering.
 
-The `block` object provides runtime context and utilities:
+**Content creator specifies the data source:**
+
+```markdown
+---
+component: ProductList
+input:
+  source: https://api.example.com/products
+  options:
+    method: GET
+  filter:
+    category: "featured"
+    limit: 6
+---
+
+# Featured Products
+```
+
+**Your component receives the fetched data:**
 
 ```jsx
-function ComponentWithChildren({ content, params, block }) {
-  // Access child blocks (from nested sections)
-  const childBlocks = block.getChildBlocks();
+function ProductList({ content, params, block }) {
+  // Access fetched data from block.input (array of Content Profile objects)
+  const products = block.input || [];
 
-  // Get block metadata
-  const blockId = block.id;
-  const blockType = block.type;
-
-  // Access parent block
-  const parentBlock = block.getParentBlock();
+  const { layout = "grid", columns = 3 } = params;
 
   return (
-    <div>
+    <div className="product-list">
       <h2>{content.main.title}</h2>
-      {childBlocks.map((childBlock, index) => (
-        <div key={index}>
-          {/* Render child blocks */}
-          {childBlock.render()}
+
+      {products.length === 0 ? (
+        <p>No products available</p>
+      ) : (
+        <div className={`product-grid cols-${columns}`}>
+          {products.map((product, index) => (
+            <div key={index} className="product-card">
+              <h3>{product.getTitle()}</h3>
+              <p>{product.getDescription()}</p>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
 ```
 
-**Common block methods:**
+The RTE handles all fetching, caching, and error handling. Your component receives an array of Content Profile objects with a consistent interface for accessing data regardless of the source structure.
 
-- `block.getChildBlocks()` - Get child blocks for parent-child relationships
-- `block.getParentBlock()` - Get the parent block
-- `block.render()` - Render a block (useful for child blocks)
-- `block.id` - Unique identifier for this block instance
-- `block.type` - Component type name
+> See the [Dynamic Data Guide](https://docs.framework.uniweb.app/dynamic-data) for complete details on data sources, Content Profile API, filtering options, and error handling patterns.
 
 ### Working with Structured Data
 
-For content that doesn't map naturally to markdown, content creators can use JSON blocks:
+For content that doesn't map naturally to markdown, content creators can use JSON blocks with hashbang schema references:
 
 ````markdown
 ```json #team-member
@@ -369,13 +480,108 @@ function TeamMember({ content, params, block }) {
 }
 ```
 
-The `#team-member` hashbang references a content schema that validates structure and enables visual editor form UIs.
+The `#team-member` hashbang references a content schema that validates structure and enables visual editor form UIs. This pattern is ideal for highly-structured data like team members, product specifications, or configuration objects that don't benefit from markdown's text-oriented format.
 
-## Component Development Patterns
+> See the [Content Schemas Guide](https://docs.framework.uniweb.app/content-schemas) for details on defining schemas, validation rules, and visual editor integration.
+
+### Working with the Block Object
+
+The `block` object provides runtime context and methods for interacting with the Framework:
+
+```jsx
+function InteractiveComponent({ content, params, block }) {
+  // Access the block's state
+  const [count, setCount] = useState(block.getState("count") || 0);
+
+  // Update block state (persists across re-renders)
+  const increment = () => {
+    const newCount = count + 1;
+    setCount(newCount);
+    block.setState("count", newCount);
+  };
+
+  // Access parent block if this is a child
+  const parent = block.getParent();
+
+  // Access child blocks if this is a parent
+  const children = block.getChildBlocks();
+
+  return (
+    <div>
+      <h2>{content.main.title}</h2>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+```
+
+Common block methods:
+
+- `block.id` - Unique identifier for this block instance
+- `block.type` - Component name
+- `block.getState(key)` - Get persistent state value
+- `block.setState(key, value)` - Set persistent state value
+- `block.getParent()` - Get parent block (if child)
+- `block.getChildBlocks()` - Get array of child blocks (if parent)
+- `block.input` - Dynamic data fetched from APIs (see "Working with Dynamic Data")
+
+### Styling Components
+
+You can style components using any approach you prefer:
+
+**CSS Modules:**
+
+```jsx
+import styles from "./HeroSection.module.css";
+
+function HeroSection({ content, params }) {
+  return (
+    <div className={styles.hero}>
+      <h1 className={styles.title}>{content.main.title}</h1>
+    </div>
+  );
+}
+```
+
+**Tailwind CSS:**
+
+```jsx
+function HeroSection({ content, params }) {
+  return (
+    <div className="relative h-screen flex items-center justify-center">
+      <h1 className="text-5xl font-bold text-white">{content.main.title}</h1>
+    </div>
+  );
+}
+```
+
+**Styled Components or any CSS-in-JS library:**
+
+```jsx
+import styled from "styled-components";
+
+const HeroWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+function HeroSection({ content, params }) {
+  return (
+    <HeroWrapper>
+      <h1>{content.main.title}</h1>
+    </HeroWrapper>
+  );
+}
+```
+
+The Framework's build system supports all standard CSS approaches. Choose what works best for your Foundation.
 
 ### Using Internal Components
 
-One of the most powerful patterns is using standard React components for rendering:
+Most rendering logic should live in internal (standard React) components, with exposed components acting as thin adapters between content and code:
 
 ```jsx
 // Exposed component that content creators can select
@@ -383,7 +589,7 @@ function TeamSection({ content, params, block }) {
   // Extract parameters
   const { columns = 3, layout = "grid", cardStyle = "standard" } = params;
 
-  // Select the appropriate internal component
+  // Select the appropriate internal component based on parameters
   const CardComponent =
     cardStyle === "minimal" ? MinimalTeamCard : StandardTeamCard;
 
@@ -450,69 +656,39 @@ This separation allows you to:
 - Switch between internal implementations based on parameters
 - Reuse internal components across multiple exposed components
 
-### Creating Component Presets
+You can also use components from `@uniwebcms/basic` as internal components:
 
-Presets provide pre-configured component options:
+````jsx
+import { Image, Link, Text } from '@uniwebcms/basic';
 
-```js
-// Define presets in component.config.js
-export const presets = [
-  {
-    name: "standard",
-    label: "Standard Grid",
-    description: "Default grid layout with 3 columns",
-    settings: {
-      layout: "grid",
-      columns: 3,
-      showBio: true,
-    },
-  },
-  {
-    name: "compact",
-    label: "Compact List",
-    description: "Compact list view without bios",
-    settings: {
-      layout: "list",
-      showBio: false,
-    },
-  },
-  {
-    name: "featured",
-    label: "Featured Team",
-    description: "Highlight key team members",
-    settings: {
-      layout: "grid",
-      columns: 1,
-      showBio: true,
-      showSocial: true,
-      size: "large",
-    },
-  },
-];
-```
+function ProductCard({ title, description, image, url }) {
+  return (
+    <div className="product-card">
+      <Image src={image} alt={title} />
+      <h3>{title}</h3>
+      <Text>{description}</Text>
+      <Link href={url}>Learn More</Link>
+    </div>
+  );
+}
 
-Content creators can then use presets in their front matter:
+## Advanced Patterns
 
-```markdown
----
-component: TeamSection
-preset: compact
----
-```
+### Parent-Child Relationships
 
-### Parent-Child Component Relationships
-
-Components can work together through parent-child relationships:
+Components can have hierarchical relationships where parent components render child components:
 
 ```jsx
 // Parent component
-function TabContainer({ content, params, block }) {
+function Tabs({ content, params, block }) {
   const [activeTab, setActiveTab] = useState(0);
+
+  // Get child blocks
   const childBlocks = block.getChildBlocks();
 
   return (
-    <div className="tab-container">
-      <div className="tab-headers">
+    <div className="tabs">
+      <div className="tab-buttons">
         {childBlocks.map((child, index) => (
           <button
             key={index}
@@ -540,16 +716,16 @@ function TabPanel({ content, params, block }) {
     </div>
   );
 }
-```
+````
 
 Content creators define the relationship in `page.yml`:
 
 ```yaml
 sections:
   - tabs
-    - panel1  # Child of tabs
-    - panel2  # Child of tabs
-    - panel3  # Child of tabs
+    - panel1 # Child of tabs
+    - panel2 # Child of tabs
+    - panel3 # Child of tabs
 ```
 
 ### Interactive Components
@@ -655,6 +831,7 @@ function AccordionComponent({ content, params, block }) {
 
    - Use React's performance optimization tools (memo, useMemo, etc.)
    - Optimize rendering for components that might have many instances
+   - Remember that Module Federation means components are shared across sites, amplifying the importance of performance
 
 7. **Make components composable**
 
@@ -662,9 +839,15 @@ function AccordionComponent({ content, params, block }) {
    - Consider how components will interact through block state and parent-child relationships
 
 8. **Keep exposed components focused**
+
    - Exposed components should primarily handle the content/code bridge
    - Move rendering logic to internal components
    - Use standard React patterns for internal components
+
+9. **Always provide a Section component**
+   - This is the required default component for content without explicit component selection
+   - Make it versatile enough to handle basic article/documentation content
+   - It's often the most-used component in documentation-heavy sites
 
 ## Testing and Development
 
@@ -759,7 +942,7 @@ cd src/my-foundation
 npx uniweb module publish
 ```
 
-Your Foundation will be available in the registry for content creators to use. See the [Deployment Guide](deployment-guide.md) for more details on publishing and versioning.
+Your Foundation will be available in the registry for you to use when creating sites via [uniweb.app](https://www.uniweb.app). When you share or transfer ownership of a uniweb.app site, you implicitly grant access to using your Foundation for content teams (on that site only). With this simple mechanism, you can prepare a site and sell access to it on your own terms. See the [Deployment Guide](deployment-guide.md) for more details on publishing and versioning.
 
 ## Conclusion
 
