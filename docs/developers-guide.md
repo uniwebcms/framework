@@ -223,6 +223,8 @@ The Framework reserves certain parameter names for standard functionality. **Do 
 - **`input`** - Defines data sources for dynamic content (APIs, databases)
 - **`background`** - Controls background visuals (gradient, image, video)
 - **`theme`** - Controls color mode (light, medium, dark) for proper text contrast
+- **`title`** - Internal name of the section (for hashes in URLs)
+- **`last_updated`** - Internal field traking the last edit date
 
 Using these names in your component's `parameters` array will cause conflicts. Your components can still read values from these parameters through the `params` object—you just cannot define them in your schema.
 
