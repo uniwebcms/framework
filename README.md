@@ -54,13 +54,13 @@ A Foundation's _interface_ is the set of components it exposes and their availab
 
 ### Content-Driven Rendering
 
-Content is written in markdown with YAML frontmatter that specifies which component to use:
+Content is written in markdown with YAML frontmatter that specifies which component to use and how to configure it:
 
 ```markdown
 ---
 component: HeroSection
 layout: centered
-background: dark
+background: hero-background.png
 ---
 
 # Welcome to Our Platform
@@ -69,6 +69,15 @@ Discover innovative solutions for your business.
 ```
 
 At runtime, the Framework connects your content with the appropriate component from your Foundation.
+
+**Frontmatter is optional.** When no frontmatter (or `component` property) is provided, the default `Section` component is assumed—perfect for documentation sites and article pages where content editors just write markdown:
+
+```markdown
+# Getting Started
+
+This content automatically renders with the Section component.
+No configuration needed—just write your markdown.
+```
 
 **Content with structure and dynamics.** Markdown handles content naturally, but you can also use JSON blocks for structured data and data sources for dynamic content. The framework handles data fetching and provides everything to your components—from static marketing sites to data-driven product catalogs with the same content-first architecture.
 
@@ -207,7 +216,7 @@ npx uniweb module publish
 ### Create and Publish Site
 
 1. Go to [uniweb.app](https://uniweb.app)
-2. Click **Create Site**
+2. Click **Create → Website**
 3. Select your foundation
 4. Build content with visual editor
 5. Click **Publish**

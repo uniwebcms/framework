@@ -260,8 +260,8 @@ The separation eliminates bottlenecks: Developers aren't blocked by content chan
 
 While the Framework is open source and works standalone, it integrates with a commercial ecosystem:
 
-- **Uniweb App**: Professional visual editor and managed hosting (optional)
-- **Foundation Registry**: Publish and share Foundations (coming soon)
+- **Uniweb App**: Professional visual editor and managed hosting
+- **Foundation Registry**: Publish and share Foundations
 - **Community**: Shared interfaces, specifications, and best practices
 
 You can use the Framework entirely on your own infrastructure, or leverage the ecosystem as needs grow. The architecture avoids lock-in while providing a path to managed services.
@@ -274,7 +274,7 @@ Now that you understand the architectural concepts, here's where to go:
 
 **Start building:**
 
-- **[Framework Website](https://framework.uniweb.app)** — Guides and comprehensive resources
+- **[Uniweb for Developers](developers-guide.md)** — Technical guide for building Foundations
 - **[Documentation](https://docs.framework.uniweb.app)** — Complete API reference and tutorials
 - **[Examples](https://github.com/uniwebcms/examples)** — Sample Foundations and component patterns
 
@@ -282,6 +282,7 @@ Now that you understand the architectural concepts, here's where to go:
 
 - **[Uniweb App](https://uniweb.app)** — Visual content editor and hosting platform
 - **[Community Interfaces](https://github.com/uniwebcms/interfaces)** — Standard component specifications
+- **[Framework Website](https://framework.uniweb.app)** — Guides and comprehensive resources
 
 **Get support:**
 
