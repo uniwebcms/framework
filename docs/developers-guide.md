@@ -221,7 +221,8 @@ The Framework reserves certain parameter names for standard functionality. **Do 
 - **`component`** - Specifies which component to render
 - **`preset`** - Applies predefined parameter configurations from your component schema
 - **`input`** - Defines data sources for dynamic content (APIs, databases)
-- **`background`** - Controls background styling and color context/theming for proper contrast
+- **`background`** - Controls background visuals (gradient, image, video)
+- **`theme`** - Controls color mode (light, medium, dark) for proper text contrast
 
 Using these names in your component's `parameters` array will cause conflicts. Your components can still read values from these parameters through the `params` object—you just cannot define them in your schema.
 
