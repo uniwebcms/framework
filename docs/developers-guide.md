@@ -450,7 +450,7 @@ The RTE handles all fetching, caching, and error handling. Your component receiv
 
 ### Working with Structured Data
 
-For content that doesn't map naturally to markdown, content creators can use JSON blocks with hashbang schema references:
+For content that doesn't map naturally to markdown, content creators can use JSON blocks with schema tags:
 
 ````markdown
 ```json #team-member
@@ -467,7 +467,7 @@ Access this structured data in your component:
 
 ```jsx
 function TeamMember({ content, params, block }) {
-  // Get structured data by schema reference
+  // Get structured data by schema tag
   const member = block.getBlockData("#team-member");
 
   return (
@@ -481,7 +481,7 @@ function TeamMember({ content, params, block }) {
 }
 ```
 
-The `#team-member` hashbang references a content schema that validates structure and enables visual editor form UIs. This pattern is ideal for highly-structured data like team members, product specifications, or configuration objects that don't benefit from markdown's text-oriented format.
+The `#team-member` schema tag references a content schema that validates structure and enables visual editor form UIs. This pattern is ideal for highly-structured data like team members, product specifications, or configuration objects that don't benefit from markdown's text-oriented format.
 
 > See the [Content Schemas Guide](https://docs.framework.uniweb.app/content-schemas) for details on defining schemas, validation rules, and visual editor integration.
 

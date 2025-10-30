@@ -183,7 +183,7 @@ For these cases, Uniweb supports JSON code blocks with schema hashbangs:
 ```
 ````
 
-The `#team-member` hashbang references a content schema that validates structure and ensures type safety. Your component receives this structured data:
+The `#team-member` schema tag references a content schema that validates structure and ensures type safety. Your component receives this structured data:
 
 ```jsx
 export default function TeamMember({ block }) {
