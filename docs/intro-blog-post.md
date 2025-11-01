@@ -77,23 +77,8 @@ That's the independence.
 | Preprocessed content—no markdown parsing, receive structured objects                    | Compose pages with smart components, not generic blocks         |
 | Component improvements propagate automatically—no coordination                          | Updates flow automatically—no maintenance requests              |
 | Undifferentiated work handled by runtime—data fetching, localization, structure parsing | Visual editor (with App)—your components become their framework |
-| Professional utilities included—forms, images, navigation, states                       | Publish instantly—no builds, no deployment pipeline             |
+| Professional utilities included—forms, images, navigation, React hooks                  | Publish instantly—no builds, no deployment pipeline             |
 | Foundations get visual editing (with App)—no extra code or configuration needed         | Autonomy—add pages, reorganize content, no developer dependency |
-
-## For Client Work
-
-The framework makes client handoffs straightforward. Build a Foundation for your clients' needs—your design system as a framework they build on:
-
-1. Go to [uniweb.app](https://uniweb.app)
-2. Click **Create → Website**
-3. Select your Foundation
-4. Build initial content with the visual editor
-5. Click **Publish**
-6. Transfer ownership to your client
-
-The Foundation license automatically transfers with the site. Your client owns their site and can continue building content independently. You maintain the Foundation—improving components, adding features, fixing bugs. Your improvements propagate to their site automatically.
-
-Terms and compensation are between you and your client. You can offer Foundation maintenance as an ongoing service, or structure it however works for your business. The architecture just makes the technical workflow clean.
 
 ## Try It
 
@@ -104,7 +89,33 @@ npm install
 npx uniweb start
 ```
 
-You'll get a Foundation with example components and a demo site. See how it works. Modify components. Check the docs at framework.uniweb.app.
+You'll get a Foundation with example components and a demo site. See how it works. Modify components. Check the docs at docs.framework.uniweb.app.
+
+## Publishing Your Foundation
+
+Once you've built a Foundation, you can deploy it to any CDN for sites to use. To make your Foundation available to you in the Uniweb App, publish it to the App registry:
+
+```bash
+npx uniweb login
+npx uniweb module publish
+```
+
+This links your Foundation to your account. You can also test locally with the App in dev mode via a public tunnel before publishing.
+
+## For Client Work
+
+The framework makes client handoffs straightforward. Build a Foundation for your clients' needs—your design system as a framework they build on:
+
+1. Go to [uniweb.app](https://uniweb.app)
+2. Click **Create → Website**
+3. Select your Foundation (published in the previous step)
+4. Build initial content with the visual editor
+5. Click **Publish**
+6. Transfer ownership to your client
+
+The Foundation license automatically transfers with the site. Your client owns their site and can continue building content independently. You maintain the Foundation—improving components, adding features, fixing bugs. Your improvements propagate to their site automatically.
+
+Terms and compensation are between you and your client. You can offer Foundation maintenance as an ongoing service, or structure it however works for your business. The architecture just makes the technical workflow clean.
 
 ## What's Next
 
