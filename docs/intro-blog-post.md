@@ -1,6 +1,6 @@
 # Introducing Uniweb Framework
 
-We're excited to share something we've been working on for a while: the Uniweb Framework. It's a different way to think about building websites. You're not building sites with the framework. You're building frameworks that content creators use to build sites.
+We're excited to share something we've been working on for a while: the Uniweb Framework. It's a different way to think about building websites. You're not building sites with the framework. You're building component systems that content creators use to build sites—using standard React, but with better separation between code and content.
 
 We call them Foundations—component collections that work like frameworks. You build and publish a Foundation. Content creators select it and build sites with your components. When you improve a component, every site using that Foundation gets the update on next page load. No coordination, no redeployment.
 
