@@ -70,6 +70,16 @@ That's the independence.
 
 **No lock-in.** Use any packages, styling, or tools. The Framework is unopinionated about implementation. Standard React development with better content organization.
 
+## Who This Helps
+
+| **Developers**                                                                          | **Content Creators**                                            |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Preprocessed content—no markdown parsing, receive structured objects                    | Compose pages with smart components, not generic blocks         |
+| Component improvements propagate automatically—no coordination                          | Updates flow automatically—no maintenance requests              |
+| Undifferentiated work handled by runtime—data fetching, localization, structure parsing | Visual editor (with App)—your components become their framework |
+| Professional utilities included—forms, images, navigation, states                       | Publish instantly—no builds, no deployment pipeline             |
+| Foundations get visual editing (with App)—no extra code or configuration needed         | Autonomy—add pages, reorganize content, no developer dependency |
+
 ## For Client Work
 
 The framework makes client handoffs straightforward. Build a Foundation for your clients' needs—your design system as a framework they build on:
