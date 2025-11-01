@@ -93,14 +93,14 @@ You'll get a Foundation with example components and a demo site. See how it work
 
 ## Publishing Your Foundation
 
-Once you've built a Foundation, you can deploy it to any CDN for sites to use. To make your Foundation available to you in the Uniweb App, publish it to the App registry:
+Once you've built a Foundation, you can deploy it to any CDN for sites to use. To make your Foundation available in the Uniweb App, publish it to the App registry:
 
 ```bash
 npx uniweb login
 npx uniweb module publish
 ```
 
-This links your Foundation to your account. You can also test locally with the App in dev mode via a public tunnel before publishing.
+This registers your Foundation under your account.
 
 ## For Client Work
 
