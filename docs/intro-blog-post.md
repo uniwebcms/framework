@@ -46,7 +46,7 @@ Here's what development looks like:
 
 You build a Foundation for whatever you're building—marketing site, documentation, product catalog. Your components. Your design system. Write schemas defining each component's interface (at minimum just the name, add parameters for configurability). Publish it.
 
-Someone creates a site and selects your Foundation. Technical users work in markdown and Git. Non-technical users work in the Uniweb App—a visual editor that reads your schemas and presents your components as native building blocks.
+Someone creates a site and selects your Foundation. They compose pages with your components—either in markdown and Git, or through the Uniweb App, a visual editor that reads your schemas and presents your components as native building blocks. The markdown approach is free and works with any Git workflow. The App is a commercial service.
 
 They compose pages: Hero at the top, feature grid below, FAQ at the bottom. Configure components through frontmatter or visual controls. Write content. Add pages. Publish.
 
