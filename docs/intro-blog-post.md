@@ -2,7 +2,7 @@
 
 We're excited to share something we've been working on for a while: the Uniweb Framework. It's a different way to think about building websites. You're not building sites with the framework. You're building component systems that content creators use to build sites—using standard React, but with better separation between code and content.
 
-We call them Foundations—component collections that work like frameworks. You build and publish a Foundation. Content creators select it and build sites with your components. When you improve a component, every site using that Foundation gets the update on next page load. No coordination, no redeployment.
+We call them Foundations—component collections that work like frameworks. You build and publish a Foundation. Content creators select it and build sites with your components. When you improve a component, every site using that Foundation gets the update on next page load if it contains non-braking changes. No coordination, no redeployment.
 
 It's component development as infrastructure. And it's open source.
 
@@ -12,7 +12,7 @@ The simplest way to explain it: you build component collections for content crea
 
 Sites are pure content and Foundations are pure code, hosted independently and interacting through a structured interface at runtime. Foundations can be hosted on any static CDN, or use Uniweb's hosting infrastructure.
 
-A Foundation is React components. Build them however you want. A Site is content—markdown, structured data, dynamic data, configuration, assets. When someone visits a page, the site loads its Foundation dynamically and each content block renders using the component it specifies.
+A Foundation is React components. Build them however you want. A Site is content—markdown, structured data, dynamic data, configuration, assets. When someone visits a page, the site loads its Foundation dynamically and each content block gets rendered by the component it specifies.
 
 Update a Foundation with a non-breaking improvement, and every site using that Foundation gets it on their next page load. Foundations use semantic versioning so sites can control their update strategy for stability.
 
@@ -116,4 +116,4 @@ Right now, we're just happy to share what we made and see what people build with
 
 If you've wanted to build component frameworks that others can build sites with, or clean separation between component code and content, or updates that propagate instantly across multiple sites—try it.
 
-We'd love to hear what you think. Docs at docs.framework.uniweb.app, code on GitHub. We're early, so you're early. Build something. Tell us what's confusing or doesn't work. Help us figure out what this becomes.
+We'd love to hear what you think. [Docs](https://docs.framework.uniweb.app) at the framework's site, [code](https://github.com/uniwebcms/framework) on GitHub. We're early, so you're early. Build something. Tell us what's confusing or doesn't work. Help us figure out what this becomes.
