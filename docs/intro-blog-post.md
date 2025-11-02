@@ -2,7 +2,7 @@
 
 We're excited to share something we've been working on for a while: the Uniweb Framework. It's a different way to think about building websites. You're not building sites with the framework. You're building component systems that content creators use to build sites—using standard React, but with better separation between code and content.
 
-We call them Foundations—component collections that work like frameworks. You build and publish a Foundation. Content creators select it and build sites with your components. When you improve a component, every site using that Foundation gets the update on next page load if it contains non-braking changes. No coordination, no redeployment.
+We call them Foundations—component collections that work like frameworks. You build and publish a Foundation. Content creators select it and build sites with your components. When you improve a component, every site using that Foundation gets the update on next page load if it contains non-breaking changes. No coordination, no redeployment.
 
 It's component development as infrastructure. And it's open source.
 
@@ -12,7 +12,7 @@ The simplest way to explain it: you build component collections for content crea
 
 Sites are pure content and Foundations are pure code, hosted independently and interacting through a structured interface at runtime. Foundations can be hosted on any static CDN, or use Uniweb's hosting infrastructure.
 
-A Foundation is React components. Build them however you want. A Site is content—markdown, structured data, dynamic data, configuration, assets. When someone visits a page, the site loads its Foundation dynamically and each content block gets rendered by the component it specifies.
+A Foundation is React components. Build them however you want. A Site is content—markdown, structured data, dynamic data, configuration, assets. When someone visits a page, the framework's runtime loads the Foundation dynamically, coordinates routing between pages, and renders each content block through the component it specifies.
 
 Update a Foundation with a non-breaking improvement, and every site using that Foundation gets it on their next page load. Foundations use semantic versioning so sites can control their update strategy for stability.
 
@@ -26,11 +26,29 @@ Content creators should compose pages, add content, and publish—without waitin
 
 Most frameworks force a choice or create friction. We built the separation into the architecture itself. Foundations and Sites are independent. Developers maintain components. Content creators compose with them. The schema defines what's possible—you control how much flexibility to expose.
 
+The framework's runtime handles the coordination—routing, component lifecycle, data fetching, content preprocessing—so Foundations stay focused on what makes them unique: rendering your components with your design system.
+
+## What the Runtime Handles
+
+Most web development involves writing the same infrastructure code repeatedly. Markdown parsing. Data fetching. Routing. Localization. Form handling. State management. Every project needs it. Few projects need it to be different.
+
+The framework's runtime takes care of this undifferentiated work. It's a lightweight coordination layer between your components and the content—so you can focus on what actually makes your Foundation valuable.
+
+**Content preprocessing.** The runtime parses markdown before your components see it. You don't write parsing logic or handle edge cases. You receive structured content objects—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. Your components just render.
+
+**SPA coordination.** The runtime manages routing with React Router, handles page transitions, coordinates component lifecycle. Sites are full single-page applications. Your Foundation components never interact with routing directly—the runtime handles it.
+
+**Data fetching.** Need API data or database content? The runtime fetches it before rendering. Your component receives data ready to use. You don't write loading states or error handling for data sources the runtime manages.
+
+**Framework components.** The `@uniwebcms/basic` package provides Section, Image, Link, Form, and more—all wrappers around runtime functionality. These handle accessibility, performance, edge cases. More importantly, they protect your Foundations from runtime implementation changes. The runtime evolves, but your components work with a stable interface.
+
+This isn't about limiting what you can build. It's about not writing the same infrastructure code in every Foundation. Handle what's unique to your design system. Let the runtime handle what's common to every site.
+
 ## What You're Actually Working With
 
 Here's what development looks like:
 
-**Preprocessed content.** You don't parse markdown. The runtime engine does that before your component sees anything. You receive a structured content object—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. You render it.
+**Preprocessed content.** You don't parse markdown. The runtime does that before your component sees anything. You receive a structured content object—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. You render it.
 
 **Mostly standard React.** Only components exposed to content creators need special interfaces and schemas. Everything else is regular React—internal components, utilities, whatever you need. Import any packages. Use any patterns. The Framework defines the boundary where components meet content. Inside that boundary, it's your code.
 
@@ -38,7 +56,7 @@ Here's what development looks like:
 
 **Zero-config tooling.** Webpack, Babel, TypeScript support, Tailwind CSS, PostCSS—pre-configured. Hot module replacement, source maps, production optimization. Just build.
 
-**Structured and dynamic data.** Markdown's natural structure handles most content. Need explicit structure like team members or products? Use JSON blocks with schema validation in the markdown. Need dynamic content? The framework's runtime engine handles data fetching from APIs and databases. Your component receives data ready to render.
+**Structured and dynamic data.** Markdown's natural structure handles most content. Need explicit structure like team members or products? Use JSON blocks with schema validation in the markdown. Need dynamic content? The framework's runtime handles data fetching from APIs and databases. Your component receives data ready to render.
 
 **Semantic parameters.** Configuration options are semantic—`theme: "dark"` not `backgroundColor: "#333"`. Content creators understand their options. You can change implementation without breaking content.
 
@@ -89,7 +107,7 @@ npm install
 npx uniweb start
 ```
 
-You'll get a Foundation with example components and a demo site. See how it works. Modify components. Check the docs at docs.framework.uniweb.app.
+You'll get a Foundation with example components and a demo site. See how it works. Modify components. Check the docs at [docs.framework.uniweb.app](https://docs.framework.uniweb.app).
 
 ## Publishing Your Foundation
 
