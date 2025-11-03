@@ -14,7 +14,7 @@ The simplest way to explain it: you build components with full React capabilitie
 
 Sites are pure content and Foundations are pure code, hosted independently and interacting through a structured interface at runtime. Foundations can be hosted on any static CDN, or use Uniweb's hosting infrastructure.
 
-You build component collections—what we call Foundations. They're like component libraries, but usable directly by everyone, not just developers. When content creators need to work with your components, you already have what they need. No additional work to make your Foundation accessible to them.
+You build component collections—what we call Foundations. A Foundation is like component library, but with a schema that describes the components that you choose to expose to content creators. When content creators need to work with your components, they can use visual tools like the Uniweb App to compose their own pages with their content.
 
 A Foundation is React components. Build them however you want. A Site is content—markdown, structured data, dynamic data, configuration, assets. When someone visits a page, the framework's runtime loads the Foundation dynamically, coordinates routing between pages, and renders each content block through the component it specifies.
 
