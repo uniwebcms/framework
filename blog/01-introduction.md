@@ -1,16 +1,20 @@
 # Introducing Uniweb Framework
 
-We're excited to share something we've been working on for a while: the Uniweb Framework. It's a different way to think about building websites. You're not building sites with the framework. You're building component systems that content creators use to build sites—using standard React, but with better separation between code and content.
+We're excited to share something we've been working on for a while: the Uniweb Framework. It's a different way to think about building websites.
 
-We call them Foundations—component collections that work like frameworks. You build and publish a Foundation. Content creators select it and build sites with your components. When you improve a component, every site using that Foundation gets the update on next page load if it contains non-breaking changes. No coordination, no redeployment.
+The framework's runtime handles the infrastructure that's the same in every project—routing, content processing, data fetching, localization. You focus on building components. No setup. No boilerplate. Just your design system and the components that make it unique.
+
+And when you need content creators to work independently, the architecture already supports that. You build component systems—what we call Foundations—that others use to build sites. When you improve a component, every site using that Foundation gets the update on next page load if it contains non-breaking changes. No coordination, no redeployment.
 
 It's component development as infrastructure. And it's open source.
 
 ## What We Made
 
-The simplest way to explain it: you build component collections for content creators, and content creators use those components to build sites. Like component libraries but usable directly by everyone, not just developers.
+The simplest way to explain it: you build components with full React capabilities while the runtime handles the infrastructure. Routing, content processing, data fetching—handled. You focus on your design system.
 
 Sites are pure content and Foundations are pure code, hosted independently and interacting through a structured interface at runtime. Foundations can be hosted on any static CDN, or use Uniweb's hosting infrastructure.
+
+You build component collections—what we call Foundations. They're like component libraries, but usable directly by everyone, not just developers. When content creators need to work with your components, you already have what they need. No additional work to make your Foundation accessible to them.
 
 A Foundation is React components. Build them however you want. A Site is content—markdown, structured data, dynamic data, configuration, assets. When someone visits a page, the framework's runtime loads the Foundation dynamically, coordinates routing between pages, and renders each content block through the component it specifies.
 
@@ -30,11 +34,11 @@ The framework's runtime handles the coordination—routing, component lifecycle,
 
 ## What the Runtime Handles
 
-Most web development involves writing the same infrastructure code repeatedly. Markdown parsing. Data fetching. Routing. Localization. Form handling. State management. Every project needs it. Few projects need it to be different.
+Most web development involves writing the same infrastructure code repeatedly. Content processing. Data fetching. Routing. Localization. Form handling. State management. Every project needs it. Few projects need it to be different.
 
 The framework's runtime takes care of this undifferentiated work. It's a lightweight coordination layer between your components and the content—so you can focus on what actually makes your Foundation valuable.
 
-**Content preprocessing.** The runtime parses markdown before your components see it. You don't write parsing logic or handle edge cases. You receive structured content objects—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. Your components just render.
+**Content preprocessing.** The runtime processes content before your components see it. You don't write parsing logic or handle edge cases. You receive structured content objects—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. Your components just render.
 
 **SPA coordination.** The runtime manages routing with React Router, handles page transitions, coordinates component lifecycle. Sites are full single-page applications. Your Foundation components never interact with routing directly—the runtime handles it.
 
@@ -48,7 +52,7 @@ This isn't about limiting what you can build. It's about not writing the same in
 
 Here's what development looks like:
 
-**Preprocessed content.** You don't parse markdown. The runtime does that before your component sees anything. You receive a structured content object—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. You render it.
+**Preprocessed content.** You don't parse content. The runtime does that before your component sees anything. You receive a structured content object—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. You render it.
 
 **Mostly standard React.** Only components exposed to content creators need special interfaces and schemas. Everything else is regular React—internal components, utilities, whatever you need. Import any packages. Use any patterns. The Framework defines the boundary where components meet content. Inside that boundary, it's your code.
 
@@ -56,7 +60,7 @@ Here's what development looks like:
 
 **Zero-config tooling.** Webpack, Babel, TypeScript support, Tailwind CSS, PostCSS—pre-configured. Hot module replacement, source maps, production optimization. Just build.
 
-**Structured and dynamic data.** Markdown's natural structure handles most content. Need explicit structure like team members or products? Use JSON blocks with schema validation in the markdown. Need dynamic content? The framework's runtime handles data fetching from APIs and databases. Your component receives data ready to render.
+**Structured and dynamic data.** Content can be markdown, JSON blocks within markdown, or structured data. Need explicit structure like team members or products? Use JSON blocks with schema validation. Need dynamic content? The framework's runtime handles data fetching from APIs and databases. Your component receives data ready to render.
 
 **Semantic parameters.** Configuration options are semantic—`theme: "dark"` not `backgroundColor: "#333"`. Content creators understand their options. You can change implementation without breaking content.
 
@@ -64,7 +68,7 @@ Here's what development looks like:
 
 You build a Foundation for whatever you're building—marketing site, documentation, product catalog. Your components. Your design system. Write schemas defining each component's interface (at minimum just the name, add parameters for configurability). Publish it.
 
-Someone creates a site and selects your Foundation. They compose pages with your components—either in markdown and Git, or through the Uniweb App, a visual editor that reads your schemas and presents your components as native building blocks. The markdown approach is free and works with any Git workflow. The App is a commercial service.
+Someone creates a site and selects your Foundation. They compose pages with your components—either working with content files and Git, or through the Uniweb App, a visual editor that reads your schemas and presents your components as native building blocks. The file-based approach is free and works with any Git workflow. The App is a commercial service.
 
 They compose pages: Hero at the top, feature grid below, FAQ at the bottom. Configure components through frontmatter or visual controls. Write content. Add pages. Publish.
 
@@ -92,7 +96,7 @@ That's the independence.
 
 | **Developers**                                                                          | **Content Creators**                                            |
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| Preprocessed content—no markdown parsing, receive structured objects                    | Compose pages with smart components, not generic blocks         |
+| Preprocessed content—no content parsing, receive structured objects                     | Compose pages with smart components, not generic blocks         |
 | Component improvements propagate automatically—no coordination                          | Updates flow automatically—no maintenance requests              |
 | Undifferentiated work handled by runtime—data fetching, localization, structure parsing | Visual editor (with App)—your components become their framework |
 | Professional utilities included—forms, images, navigation, React hooks                  | Publish instantly—no builds, no deployment pipeline             |
