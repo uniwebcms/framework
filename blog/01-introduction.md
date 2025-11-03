@@ -14,7 +14,7 @@ The simplest way to explain it: you build components with full React capabilitie
 
 Sites are pure content and Foundations are pure code, hosted independently and interacting through a structured interface at runtime. Foundations can be hosted on any static CDN, or use Uniweb's hosting infrastructure.
 
-You build component collections—what we call Foundations. A Foundation is like component library, but with a schema that describes the components that you choose to expose to content creators. When content creators need to work with your components, they can use visual tools like the Uniweb App to compose their own pages with their content.
+You build component collections—what we call Foundations. A Foundation is like component library, but with a schema that describes the components that you choose to expose to content creators. When content creators need to work with your components, they can compose pages with their own content using content files or visual tools like the Uniweb App.
 
 A Foundation is React components. Build them however you want. A Site is content—markdown, structured data, dynamic data, configuration, assets. When someone visits a page, the framework's runtime loads the Foundation dynamically, coordinates routing between pages, and renders each content block through the component it specifies.
 
@@ -52,17 +52,13 @@ This isn't about limiting what you can build. It's about not writing the same in
 
 Here's what development looks like:
 
-**Preprocessed content.** You don't parse content. The runtime does that before your component sees anything. You receive a structured content object—headings organized into sections, paragraphs as arrays, images with metadata, lists with structure. You render it.
-
 **Mostly standard React.** Only components exposed to content creators need special interfaces and schemas. Everything else is regular React—internal components, utilities, whatever you need. Import any packages. Use any patterns. The Framework defines the boundary where components meet content. Inside that boundary, it's your code.
-
-**Professional utilities included.** The `@uniwebcms/basic` package provides Section, Image, Link, Form, and more. These handle edge cases, accessibility, and performance. You don't start from scratch.
 
 **Zero-config tooling.** Webpack, Babel, TypeScript support, Tailwind CSS, PostCSS—pre-configured. Hot module replacement, source maps, production optimization. Just build.
 
 **Structured and dynamic data.** Content can be markdown, JSON blocks within markdown, or structured data. Need explicit structure like team members or products? Use JSON blocks with schema validation. Need dynamic content? The framework's runtime handles data fetching from APIs and databases. Your component receives data ready to render.
 
-**Semantic parameters.** Configuration options are semantic—`theme: "dark"` not `backgroundColor: "#333"`. Content creators understand their options. You can change implementation without breaking content.
+**Semantic parameters.** The components you expose to content creators use semantic options—`theme: "dark"` not `backgroundColor: "#333"`. Content creators understand their options. You can change implementation without breaking content.
 
 ## The Workflow
 
